@@ -1,7 +1,12 @@
 <?php
 
-include "../AccesoADatos/Servicio.php";
-$conexion = new Servicio();
+require_once "../AccesoADatos/ServicioCarrera.php";
+require_once "../Entidades/Carrera.php";
+
+$carrera = new Carrera("iNGEssSdg", "ASDAS", "SADASD");
+$servicioCarrera = new ServicioCarrera();
+
+$servicioCarrera->insertar_carrera($carrera);
 
 ?>
 <!DOCTYPE html>
