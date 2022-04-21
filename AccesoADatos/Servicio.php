@@ -7,10 +7,13 @@ class Servicio
     private $password;
     private $database;
     private $port;
-    private $conexion;
+    var $conexion;
 
 
     function __construct()
+    {
+    }
+    public function conectar()
     {
         $listadatos = $this->datosConexion();
         foreach ($listadatos as $key => $value) {
@@ -21,7 +24,7 @@ class Servicio
             $this->port = $value['port'];
         }
 
-        $this->conexion = new mysqli($this->server, $this->user, $this->password, $this->database);
+        $this->conexion = mysqli_connect($this->server, $this->user, $this->password, $this->database);
         if ($this->conexion->connect_errno) {
             echo "algo va mal con la conexion";
             die();
@@ -38,5 +41,18 @@ class Servicio
 
     public function desconectar()
     {
+        mysqli_close($this->conexion);
+    }
+
+    private function convertirUTF8($array)
+    {
+
+        array_walk_recursive($array, function (&$item, $key) {
+            if (!mb_detect_encoding($item, 'utf-8', true)) {
+                $item = utf8_encode($item);
+            }
+        });
+
+        return $array;
     }
 }
