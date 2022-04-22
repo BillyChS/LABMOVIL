@@ -1,6 +1,7 @@
+#Options All -Indexes
+#Options -MultiViews 
 
-# Si la ruta no es un archivo existente, ni una carpeta
-# Reescribir al index
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.+?)/?$ index.php?url=$1 [L,QSA]
+#RewriteEngine On
+
+#RewriteCond %{REQUEST_FILNAME} !-f
+#RewriteRule ^ index.php [QSA,L]
