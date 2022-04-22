@@ -5,7 +5,8 @@ class Carrera
     private $codigo_carrera = "";
     private $nombre = "";
     private $titulo = "";
-
+    //Array de las carreras
+    private $lista_Carreras = array();
     //Constructor
     public function __construct($codigo_carrera, $nombre, $titulo)
     {
@@ -46,8 +47,7 @@ class Carrera
     public function __toString()
     {
         try {
-
-            return (string) "Carrera{" + "codigo_carrera=" + $this->codigo_carrera + ", nombre=" + $this->nombre + ", titulo=" + $this->titulo + '}';
+            return (string) "Carrera{" . "codigo_carrera=" . $this->codigo_carrera . ", nombre=" . $this->nombre . ", titulo=" . $this->titulo . '}';
         } catch (Exception $e) {
             return '';
         }

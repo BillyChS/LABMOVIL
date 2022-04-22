@@ -1,6 +1,6 @@
 <?php
 include('Servicio.php');
-include('../Entidades/Carrera.php');
+include('../Entidades/Curso.php');
 //include 'Exceptions/GlobalException.php';
 //include 'Exceptions/NoDataException.php';
 
@@ -151,8 +151,6 @@ class ServicioCarrera extends Servicio
         }
     }
 
-
-    //Busqueda por carrera
     public function buscar_carrera($codigo_carrea)
     {
 
@@ -205,114 +203,6 @@ class ServicioCarrera extends Servicio
     }
 
 
-    //Busqueda por codigo de carrera
-    public function buscar_carrera_codigo($codigo_carrea)
-    {
-
-        try {
-            $this->conectar();
-        } catch (Exception $e) {
-            echo "Exception:" . $e->getMessage();
-        }
-
-        //Statement
-        $stmt = null;
-        try {
-            //objeto conexion
-            $con = $this->conexion;
-            //
-            $LISTAR_CARRERA = "SELECT CODIGO_CARRERA,NOMBRE,TITULO FROM CARRERA WHERE CODIGO_CARRERA='" . $codigo_carrea . "'";
-
-            //Llamado al prodecimiento almacenado
-            $stmt = $con->query($LISTAR_CARRERA);
-            //pstmt.registerOutParameter(1, OracleTypes.CURSOR);
-            //$stmt->execute();
-
-            //rs = (ResultSet) pstmt.getObject(1);
-            if ($stmt->num_rows > 0) {
-                // output data of each row
-                while ($row = $stmt->fetch_assoc()) {
-                    $coleccion = array(
-                        "Codigo_carrera" => $row["CODIGO_CARRERA"],
-                        "Nombre" => $row["NOMBRE"],
-                        "Titulo" => $row["TITULO"]
-                    );
-                }
-            } else {
-                echo "0 results";
-            }
-        } catch (Exception $EX) {
-            echo "Exception, sentencia no valida: " . $EX->getMessage();
-        } finally {
-            try {
-                //Se cierra el statement
-                if ($stmt != null) {
-                    $stmt->close();
-                }
-                $this->desconectar();
-            } catch (mysqli_sql_exception $s) {
-                echo "Error" . $s->getMessage();
-            }
-        }
-        return $coleccion;
-    }
-
-
-    //buscar por nombre de carrera
-    public function buscar_carrera_nombre($nombre_carrea)
-    {
-
-        try {
-            $this->conectar();
-        } catch (Exception $e) {
-            echo "Exception:" . $e->getMessage();
-        }
-
-        //Statement
-        $stmt = null;
-        try {
-            //objeto conexion
-            $con = $this->conexion;
-            //
-            $LISTAR_CARRERA = "SELECT CODIGO_CARRERA,NOMBRE,TITULO FROM CARRERA WHERE NOMBRE='" . $nombre_carrea . "'";
-
-            //Llamado al prodecimiento almacenado
-            $stmt = $con->query($LISTAR_CARRERA);
-            //pstmt.registerOutParameter(1, OracleTypes.CURSOR);
-            //$stmt->execute();
-
-            //rs = (ResultSet) pstmt.getObject(1);
-            if ($stmt->num_rows > 0) {
-                // output data of each row
-                while ($row = $stmt->fetch_assoc()) {
-                    $coleccion = array(
-                        "Codigo_carrera" => $row["CODIGO_CARRERA"],
-                        "Nombre" => $row["NOMBRE"],
-                        "Titulo" => $row["TITULO"]
-                    );
-                }
-            } else {
-                echo "0 results";
-            }
-        } catch (Exception $EX) {
-            echo "Exception, sentencia no valida: " . $EX->getMessage();
-        } finally {
-            try {
-                //Se cierra el statement
-                if ($stmt != null) {
-                    $stmt->close();
-                }
-                $this->desconectar();
-            } catch (mysqli_sql_exception $s) {
-                echo "Error" . $s->getMessage();
-            }
-        }
-        return $coleccion;
-    }
-
-
-
-
 
 
     public function eliminar_carrera($codigoCarrera)
@@ -334,7 +224,7 @@ class ServicioCarrera extends Servicio
 
             $stmt->bind_param("s", $codigoCarrera);
             //Ejecutar el statement
-            $stmt->execute();
+            $res = $stmt->execute();
             /*
             if ($res == 0) {
                 echo "No se realizo el borrado";
