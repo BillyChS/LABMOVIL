@@ -10,10 +10,11 @@ class ServicioProfesor extends Servicio
     private  $INSERTAR_PROFESOR = "call INSERTAR_PROFESOR(?,?,?,?)";
     private  $MODIFICAR_PROFESOR = "call MODIFICAR_PROFESOR(?,?,?)";
     private  $ELIMINAR_PROFESOR = "call ELIMINAR_PROFESOR(?)";
-    //private $elProfesor = new Carrera("","","");
+    //private $elProfesor ;
 
     public function __construct()
     {
+       // $elProfesor=new Profesor()
     }
 
     public function insertar_profesor($elProfesor)
@@ -38,7 +39,7 @@ class ServicioProfesor extends Servicio
             $telefono = $elProfesor->getTelefono();
             $email=$elProfesor->getEmail();
             //Seteamos los parametros 
-            $stmt->bind_param("ssss", $cedula_profesor, $nombre, $telefono,$email);
+            $stmt->bind_param("ssss", $cedula_profesor, $nombre, $telefono, $email);
             //Ejecutar el statement
             $stmt->execute();
         } catch (Exception $EX) {

@@ -8,8 +8,8 @@ include('../Entidades/Alumno.php');
 class ServicioProfesor extends Servicio
 {
     private  $INSERTAR_PROFESOR = "call INSERTAR_PROFESOR(?,?,?,?)";
-    private  $MODIFICAR_PROFESOR = "call MODIFICAR_PROFESOR(?,?,?)";
-    private  $ELIMINAR_PROFESOR = "call ELIMINAR_PROFESOR(?)";
+    // private  $MODIFICAR_PROFESOR = "call MODIFICAR_PROFESOR(?,?,?)";
+    // private  $ELIMINAR_PROFESOR = "call ELIMINAR_PROFESOR(?)";
     //private $elProfesor = new Carrera("","","");
 
     public function __construct()
