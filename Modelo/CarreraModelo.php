@@ -70,6 +70,6 @@ class CarreraModelo
     //Buscar por carrera
     public function buscarCarrera($id)
     {
-        return $this->servicioCarrera->buscar_carrera($id);
+        //return $this->servicioCarrera->buscar_carrera($id);
     }
 }

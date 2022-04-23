@@ -5,18 +5,19 @@ include('../Entidades/Curso.php');
 //include 'Exceptions/NoDataException.php';
 
 
-class ServicioCarrera extends Servicio
+class ServicioCurso extends Servicio
 {
-    private  $INSERTAR_CARRERA = "call INSERTAR_CARRERA(?,?,?)";
-    private  $MODIFICAR_CARRERA = "call MODIFICAR_CARRERA(?,?,?)";
-    private  $ELIMINAR_CARRERA = "call ELIMINAR_CARRERA(?)";
+    private  $INSERTAR_CURSO = "call INSERTAR_CURSO(?,?,?,?,?,?)";
+    private  $MODIFICAR_CURSO = "call MODIFICAR_CURSO(?,?,?,?,?,?)";
+    private  $ELIMINAR_CURSO = "call ELIMINAR_CURSO(?)";
     //private $laCarrera = new Carrera("","","");
 
     public function __construct()
     {
     }
 
-    public function insertar_carrera($laCarrera)
+    //ISERTAR CURSO
+    public function insertar_curso($curso)
     {
         try {
             $this->conectar();
@@ -30,14 +31,19 @@ class ServicioCarrera extends Servicio
             //objeto conexion
             $con = $this->conexion;
             //Llamado al prodecimiento almacenado
-            $stmt = $con->prepare($this->INSERTAR_CARRERA);
+            $stmt = $con->prepare($this->INSERTAR_CURSO);
 
             //variables
-            $codigo_carrea = $laCarrera->getCodigo_carrera();
-            $nombre = $laCarrera->getNombre();
-            $titulo = $laCarrera->getTitulo();
+            $codigo_curso = $curso->getCodigo_curso();
+            $codigo_carrea = $curso->getCodigo_carrera();
+            $no_ciclo = $curso->getNo_ciclo();
+            $nombre = $curso->getNombre();
+            $creditos = $curso->getCreditos();
+            $horas_semanales = $curso->getHoras_semanales();
+
             //Seteamos los parametros 
-            $stmt->bind_param("sss", $codigo_carrea, $nombre, $titulo);
+            $stmt->bind_param("ssssss", $codigo_curso, $codigo_carrea, $no_ciclo, $nombre, $creditos, $horas_semanales);
+
             //Ejecutar el statement
             $stmt->execute();
         } catch (Exception $EX) {
@@ -56,7 +62,7 @@ class ServicioCarrera extends Servicio
     }
 
     /**/
-    public function listar_carrera()
+    public function listar_cursos()
     {
 
         try {
@@ -73,21 +79,24 @@ class ServicioCarrera extends Servicio
             //objeto conexion
             $con = $this->conexion;
             //
-            $LISTAR_CARRERA = "SELECT * FROM CARRERA";
+            $LISTAR_CURSOS = "SELECT * FROM CURSO";
             //Llamado al prodecimiento almacenado
-            $stmt = $con->query($LISTAR_CARRERA);
+            $stmt = $con->query($LISTAR_CURSOS);
             //pstmt.registerOutParameter(1, OracleTypes.CURSOR);
             //$stmt->execute();
 
             //rs = (ResultSet) pstmt.getObject(1);
 
             foreach ($stmt as $key) {
-                $laCarrera = new Carrera(
+                $curso = new Curso(
+                    $key["CODIGO_CURSO"],
                     $key["CODIGO_CARRERA"],
+                    $key["NO_CICLO"],
                     $key["NOMBRE"],
-                    $key["TITULO"]
+                    $key["CREDITOS"],
+                    $key["HORAS_SEMANALES"]
                 );
-                array_push($coleccion, $laCarrera);
+                array_push($coleccion, $curso);
             }
         } catch (Exception $EX) {
             echo "Exception, sentencia no valida: " . $EX->getMessage();
@@ -108,8 +117,9 @@ class ServicioCarrera extends Servicio
         return $coleccion;
     }
 
-    //MODIFICAR CARRERA
-    public function modificar_carrera($laCarrera)
+
+    //MODIFICAR CURSO
+    public function modificar_curso($curso)
     {
         try {
             $this->conectar();
@@ -125,15 +135,20 @@ class ServicioCarrera extends Servicio
             //objeto conexion
             $con = $this->conexion;
             //Llamado al prodecimiento almacenado
-            $stmt = $con->prepare($this->MODIFICAR_CARRERA);
+            $stmt = $con->prepare($this->MODIFICAR_CURSO);
 
             //variables
-            $codigo_carrea = $laCarrera->getCodigo_carrera();
-            $nombre = $laCarrera->getNombre();
-            $titulo = $laCarrera->getTitulo();
+            //variables
+            $codigo_curso = $curso->getCodigo_curso();
+            $codigo_carrea = $curso->getCodigo_carrera();
+            $no_ciclo = $curso->getNo_ciclo();
+            $nombre = $curso->getNombre();
+            $creditos = $curso->getCreditos();
+            $horas_semanales = $curso->getHoras_semanales();
 
             //Seteamos los parametros 
-            $stmt->bind_param("sss", $codigo_carrea, $nombre, $titulo);
+            $stmt->bind_param("ssssss", $codigo_curso, $codigo_carrea, $no_ciclo, $nombre, $creditos, $horas_semanales);
+
             //Ejecutar el statement
             $stmt->execute();
         } catch (Exception $EX) {
@@ -151,7 +166,9 @@ class ServicioCarrera extends Servicio
         }
     }
 
-    public function buscar_carrera($codigo_carrea)
+
+    //Busqueda por carrera
+    public function buscar_curso_nombre($nombre)
     {
 
         try {
@@ -163,13 +180,14 @@ class ServicioCarrera extends Servicio
         //Statement
         $stmt = null;
         try {
+
             //objeto conexion
             $con = $this->conexion;
             //
-            $LISTAR_CARRERA = "SELECT CODIGO_CARRERA,NOMBRE,TITULO FROM CARRERA WHERE CODIGO_CARRERA='" . $codigo_carrea . "'";
+            $BUSCAR_CURSO_NOMBRE = "SELECT * FROM CURSO WHERE NOMBRE='" . $nombre . "'";
 
             //Llamado al prodecimiento almacenado
-            $stmt = $con->query($LISTAR_CARRERA);
+            $stmt = $con->query($BUSCAR_CURSO_NOMBRE);
             //pstmt.registerOutParameter(1, OracleTypes.CURSOR);
             //$stmt->execute();
 
@@ -178,13 +196,137 @@ class ServicioCarrera extends Servicio
                 // output data of each row
                 while ($row = $stmt->fetch_assoc()) {
                     $coleccion = array(
-                        "Codigo_carrera" => $row["CODIGO_CARRERA"],
+                        "Codigo_Curso" => $row["CODIGO_CURSO"],
+                        "Codigo_Carrera" => $row["CODIGO_CARRERA"],
+                        "No_Ciclo" => $row["NO_CICLO"],
                         "Nombre" => $row["NOMBRE"],
-                        "Titulo" => $row["TITULO"]
+                        "Creditos" => $row["CREDITOS"],
+                        "Horas_Semanales" => $row["HORAS_SEMANALES"]
                     );
                 }
             } else {
-                echo "0 results";
+                $coleccion = array(
+                    "Error" => "No se cargaron los datos"
+                );
+            }
+        } catch (Exception $EX) {
+            echo "Exception, sentencia no valida: " . $EX->getMessage();
+        } finally {
+            try {
+                //Se cierra el statement
+                if ($stmt != null) {
+                    $stmt->close();
+                }
+                $this->desconectar();
+            } catch (mysqli_sql_exception $s) {
+                echo "Error" . $s->getMessage();
+            }
+        }
+        return $coleccion;
+    }
+
+
+    //Busqueda por carrera
+    public function buscar_curso_codigo($codigo_curso)
+    {
+
+        try {
+            $this->conectar();
+        } catch (Exception $e) {
+            echo "Exception:" . $e->getMessage();
+        }
+
+        //Statement
+        $stmt = null;
+        try {
+
+            //objeto conexion
+            $con = $this->conexion;
+            //
+            $BUSCAR_CURSO_NOMBRE = "SELECT * FROM CURSO WHERE CODIGO_CURSO='" . $codigo_curso . "'";
+
+            //Llamado al prodecimiento almacenado
+            $stmt = $con->query($BUSCAR_CURSO_NOMBRE);
+            //pstmt.registerOutParameter(1, OracleTypes.CURSOR);
+            //$stmt->execute();
+
+            //rs = (ResultSet) pstmt.getObject(1);
+            if ($stmt->num_rows > 0) {
+                // output data of each row
+                while ($row = $stmt->fetch_assoc()) {
+                    $coleccion = array(
+                        "Codigo_Curso" => $row["CODIGO_CURSO"],
+                        "Codigo_Carrera" => $row["CODIGO_CARRERA"],
+                        "No_Ciclo" => $row["NO_CICLO"],
+                        "Nombre" => $row["NOMBRE"],
+                        "Creditos" => $row["CREDITOS"],
+                        "Horas_Semanales" => $row["HORAS_SEMANALES"]
+                    );
+                }
+            } else {
+                $coleccion = array(
+                    "Error" => "No se cargaron los datos"
+                );
+            }
+        } catch (Exception $EX) {
+            echo "Exception, sentencia no valida: " . $EX->getMessage();
+        } finally {
+            try {
+                //Se cierra el statement
+                if ($stmt != null) {
+                    $stmt->close();
+                }
+                $this->desconectar();
+            } catch (mysqli_sql_exception $s) {
+                echo "Error" . $s->getMessage();
+            }
+        }
+        return $coleccion;
+    }
+
+
+    //Busqueda por carrera
+    public function buscar_curso_nombreCarrea($nombre_carrea)
+    {
+
+        try {
+            $this->conectar();
+        } catch (Exception $e) {
+            echo "Exception:" . $e->getMessage();
+        }
+
+        //Statement
+        $stmt = null;
+        try {
+
+            //objeto conexion
+            $con = $this->conexion;
+            //
+
+            $BUSCAR_CURSO_NOMBRE = "SELECT * FROM CURSO INNER JOIN CARRERA ON CURSO.CARRERA='" . $nombre_carrea . "'";
+
+            //Llamado al prodecimiento almacenado
+            $stmt = $con->query($BUSCAR_CURSO_NOMBRE);
+            //pstmt.registerOutParameter(1, OracleTypes.CURSOR);
+            //$stmt->execute();
+
+            //rs = (ResultSet) pstmt.getObject(1);
+            if ($stmt->num_rows > 0) {
+                // output data of each row
+                while ($row = $stmt->fetch_assoc()) {
+                    $coleccion = array(
+                        "Codigo_Curso" => $row["CODIGO_CURSO"],
+                        "Codigo_Carrera" => $row["CODIGO_CARRERA"],
+                        "No_Ciclo" => $row["NO_CICLO"],
+                        "Nombre" => $row["NOMBRE"],
+                        "Creditos" => $row["CREDITOS"],
+                        "Horas_Semanales" => $row["HORAS_SEMANALES"]
+                    );
+                }
+            } else {
+                $coleccion = array(
+                    "Error" => "No se cargaron los datos"
+                );
             }
         } catch (Exception $EX) {
             echo "Exception, sentencia no valida: " . $EX->getMessage();
@@ -205,7 +347,7 @@ class ServicioCarrera extends Servicio
 
 
 
-    public function eliminar_carrera($codigoCarrera)
+    public function eliminar_curso($codigo_curso)
     {
 
         try {
@@ -220,11 +362,11 @@ class ServicioCarrera extends Servicio
             //objeto conexion
             $con = $this->conexion;
             //Llamado al prodecimiento almacenado
-            $stmt = $con->prepare($this->ELIMINAR_CARRERA);
+            $stmt = $con->prepare($this->ELIMINAR_CURSO);
 
-            $stmt->bind_param("s", $codigoCarrera);
+            $stmt->bind_param("s", $codigo_curso);
             //Ejecutar el statement
-            $res = $stmt->execute();
+            $stmt->execute();
             /*
             if ($res == 0) {
                 echo "No se realizo el borrado";

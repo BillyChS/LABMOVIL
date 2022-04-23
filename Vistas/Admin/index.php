@@ -13,7 +13,7 @@
 <body>
     <div class="pt-5 container">
         <div class="p-3 text-center">
-            <button class="pb-2 btn btn-primary"><i class="fas fa-address-card"></i> Agregar Carrera</button>
+            <a href="create.php" class="pb-2 btn btn-primary"><i class="fas fa-address-card"></i> Agregar Carrera</a>
         </div>
         <table id="ejemplo" class="table table-hover table-dark">
             <thead>

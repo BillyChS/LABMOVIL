@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,6 +14,9 @@
 
 <body>
     <div class="pt-5 container">
+        <div class="p-3 text-center">
+            <a href="index.php" class="pb-2 btn btn-dark"><i class="fas fa-address-card"></i> Volver</a>
+        </div>
         <div class="offset-2 col-8">
             <form id="form">
                 <div class="mb-3">
