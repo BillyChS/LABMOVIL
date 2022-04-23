@@ -10,6 +10,26 @@
  =========================================================
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
+
+
+
+<?php
+
+include '../AccesoADatos/Servicio.php';
+//include '../AccesoADatos/ServicioLoggin.php';
+include 'Exceptions/GlobalException.php';
+include 'Exceptions/NoDataException.php';
+        if(isset($_POST['usuario']) && isset($_POST['clave'])){
+          try {
+            $this->conectar();
+            require_once "../AccesoADatos/ServicioLoggin.php";
+        } catch (Exception $e) {
+            echo "Exception:" . $e->getMessage();
+        }
+         
+        }
+?>
+
 <!DOCTYPE html>
 <html lang="en" itemscope itemtype="http://schema.org/WebPage">
 
