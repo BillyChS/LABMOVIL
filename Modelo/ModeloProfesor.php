@@ -13,7 +13,7 @@ class ModeloProfesor
     public  function __construct()
     {
         $this->profesor = new Profesor("", "", "","");
-        //$this->servicioProfesor = new ServicioProfesor();
+        $this->servicioProfesor = new ServicioProfesor();
     }
 
     public function getProfesor()
@@ -59,7 +59,7 @@ class ModeloProfesor
     //Buscar por codigo
     public function buscarPorCodigo($id)
     {
-        return $this->servicioProfesor->buscar_profesor_codigo($id);
+        return $this->servicioProfesor->buscar_profesor_cedula($id);
     }
     //Busca por nombre
     public function buscarPorNombre($nombre)
