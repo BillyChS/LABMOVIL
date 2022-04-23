@@ -20,7 +20,7 @@ class ControladorCarrera
         $data = array();
         foreach ($carreraModel->listar() as $s) {
             $d = array(
-                "Codigo_carrera" => $s->getCodigo_carrera(),
+                "Codigo_Carrera" => $s->getCodigo_carrera(),
                 "Nombre" => $s->getNombre(),
                 "Titulo" => $s->getTitulo()
             );
