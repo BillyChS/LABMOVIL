@@ -44,16 +44,19 @@ class ModeloCurso
     {
         return $this->servicioCurso->eliminar_curso($id);
     }
+
     //Buscar por codigo
     public function buscarPorCodigoCurso($codigo_curso)
     {
         return $this->servicioCurso->buscar_curso_codigo($codigo_curso);
     }
+
     //Busca por nombre
     public function buscarPorNombre($nombre)
     {
         return $this->servicioCurso->buscar_curso_nombre($nombre);
     }
+
     //Buscar por carrera
     public function buscarPorNombreCarrera($nombreCarrera)
     {

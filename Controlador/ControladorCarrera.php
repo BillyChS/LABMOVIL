@@ -16,13 +16,15 @@ class ControladorCarrera
     //Obtener Carrera
     public function getData()
     {
+        $data = array();
         $carreraModel = new CarreraModelo();
         $data = array();
         foreach ($carreraModel->listar() as $s) {
             $d = array(
                 "Codigo_Carrera" => $s->getCodigo_carrera(),
                 "Nombre" => $s->getNombre(),
-                "Titulo" => $s->getTitulo()
+                "Titulo" => $s->getTitulo(),
+                "Cursos" => $s->getCursos()
             );
             array_push($data, $d);
         }

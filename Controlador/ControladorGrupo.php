@@ -1,18 +1,19 @@
 
 <?php
-include('../Modelo/ModeloCurso.php');
+include('../Modelo/ModeloGrupo.php');
 
-class ControladorCurso
+class ControladorGrupo
 {
     public function __construct()
     {
     }
     //Guardar Carrera
-    public function insertData($carrera)
+    public function insertData($grupo)
     {
-        $cursoModel = new ModeloCurso();
-        $cursoModel->insertar($carrera);
+        $cursoModel = new ModeloGrupo();
+        $cursoModel->insertar_grupo($grupo);
     }
+
     //Obtener Carrera
     public function getData()
     {
@@ -43,24 +44,5 @@ class ControladorCurso
         $cursoModel = new ModeloCurso();
         $data = $cursoModel->buscarPorCodigoCurso($id);
         return $data;
-    }
-    //Buscar por nombre
-    public function searchDataName($nombreCurso)
-    {
-        $cursoModel = new ModeloCurso();
-        $data = $cursoModel->buscarPorNombre($nombreCurso);
-        return $data;
-    }
-    //Por nombre de carrera
-    public function buscarPorNombreCarrera($nombre_carrera)
-    {
-        $cursoModel = new ModeloCurso();
-        $data = $cursoModel->buscarPorNombreCarrera($nombre_carrera);
-        return $data;
-    }
-    public function deleteData($id)
-    {
-        $cursoModel = new ModeloCurso();
-        return $cursoModel->eliminar($id);
     }
 }

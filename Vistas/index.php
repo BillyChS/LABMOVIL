@@ -1,46 +1,252 @@
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-    <title>Document</title>
+    <title>How To Create jQuery Form Validation For Login And Registration Form</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: arial;
+            text-decoration: none;
+        }
+
+        body {
+            background: #5c2fab;
+        }
+
+        a:focus,
+        button:focus {
+            outline: none;
+        }
+
+        .login-form {
+            max-width: 470px;
+            background: #673AB7;
+            padding: 30px 60px;
+            margin: 50px auto 0px;
+        }
+
+        .logo {
+            margin: 0 auto;
+            display: table;
+        }
+
+        .logo img {
+            max-width: 60px;
+        }
+
+        .social-btn {
+            display: flex;
+            margin: 40px 0px;
+            padding: 15px 0px;
+            background-color: #5c2fab;
+        }
+
+        .social-btn button {
+            width: 100%;
+            cursor: pointer;
+            border: none;
+            background-color: transparent;
+            font-size: 22px;
+            color: #fff;
+        }
+
+        .input-box {
+            width: 100%;
+            height: 50px;
+            position: relative;
+            margin-top: 15px;
+        }
+
+        .input-box input {
+            width: 100%;
+            height: 50px;
+            border: none;
+            background: #ffffff;
+            padding: 0 15px;
+            font-size: 16px;
+            outline: none;
+            color: #5c2fab;
+            border-radius: 4px;
+        }
+
+        .require-msg {
+            position: absolute;
+            top: -20%;
+            right: 0px;
+            font-size: 15px;
+            background-color: #FF9800;
+            color: #ffffff;
+            padding: 3px 5px;
+            border-radius: 4px;
+        }
+
+        .input-box input:focus+.require-msg {
+            display: none;
+        }
+
+        .remember-pwd {
+            margin-top: 15px;
+            color: #f4f4f480;
+            overflow: hidden;
+            font-size: 14px;
+        }
+
+        .remember-pwd a {
+            color: #f4f4f480;
+            font-size: 14px;
+            float: right;
+        }
+
+        .remember {
+            float: left;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .checkbox {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            background: #5c2fab;
+            border-radius: 50px;
+            margin-right: 10px;
+            position: relative;
+            border: 2px solid #fff;
+        }
+
+        .checkbox input {
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .checked {
+            position: absolute;
+            left: 5px;
+            top: 2px;
+            width: 4px;
+            height: 10px;
+            border: solid #fff;
+            border-width: 0 2px 2px 0;
+            transform: rotate(35deg);
+            display: none;
+        }
+
+        .checkbox input:checked+.checked {
+            display: block;
+        }
+
+        .login-btn {
+            width: 100%;
+            margin-top: 30px;
+            background: #5c2fab;
+            border: none;
+            color: #fff;
+            outline: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 50px;
+            padding: 15px 0px;
+            transition: .3s linear;
+        }
+
+        .login-btn.active {
+            background: #ffffff;
+            color: #5c2fab;
+        }
+
+        .hide-msg {
+            display: none;
+        }
+
+        .policy-link {
+            text-align: center;
+            padding: 20px 0px 0px;
+            color: #f1f1f1;
+            font-size: 14px;
+            display: table;
+            margin: 0 auto;
+        }
+
+        .new-account a {
+            color: #f1f1f1;
+            font-size: 14px;
+        }
+
+        .new-account {
+            font-size: 14px;
+            text-align: center;
+            color: #f4f4f480;
+            margin: 20px 0;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container">
+    <div class="login-form">
+        <a href="#" class="logo"><img src="https://www.markuptag.com/images/white-logo-icon.png" alt="logo"></a>
 
-        <table id="table_id" class="display">
-            <thead>
-                <tr>
-                    <th>Column 1</th>
-                    <th>Column 2</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Row 1 Data 1</td>
-                    <td>Row 1 Data 2</td>
-                </tr>
-                <tr>
-                    <td>Row 2 Data 1</td>
-                    <td>Row 2 Data 2</td>
-                </tr>
-            </tbody>
-        </table>
+        <!-- Login by social media -->
 
+
+        <br><br><br>
+
+        <!-- Login by username and password -->
+        <form action="" method="">
+            <div class="input-box">
+                <input type="email" placeholder="Username or Email">
+                <span class="require-msg hide-msg">Required</span>
+            </div>
+
+            <div class="input-box">
+                <input type="password" placeholder="Password">
+                <span class="require-msg hide-msg">Required</span>
+            </div>
+
+            <div class="remember-pwd">
+                <label class="remember">
+                    <span class="checkbox">
+                        <input type="checkbox">
+                        <span class="checked"></span>
+                    </span>Remember me
+                </label>
+                <a href="#">Forgot Password?</a>
+            </div>
+
+            <input type="submit" value="Login" class="login-btn" disabled>
+            <a href="#" class="policy-link">Our Privacy Policy</a>
+        </form>
+        <p class="new-account">Don't have an account? <a href="#">Sign Up</a></p>
     </div>
 </body>
-<script src="<script src=" https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>"></script>
-<script src="//unpkg.com/alpinejs" defer></script>
-<script src="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"></script>
+<script type="text/javascript">
+    // Show/Hide required msg
+    $(".input-box input").focusout(function() {
+        if ($(this).val() == "") {
+            $(this).siblings().removeClass("hide-msg");
+        } else {
+            $(this).siblings().addClass("hide-msg");
+        }
+    });
 
-<script>
-    $(document).ready(function() {
-        $('#myTable').DataTable();
+    // Login button able and disabled
+    $(".input-box input").keyup(function() {
+        var inputs = $(".input-box input");
+        if (inputs[0].value != "" && inputs[1].value) {
+            $(".login-btn").attr("disabled", false);
+            $(".login-btn").addClass("active");
+        } else {
+            $(".login-btn").attr("disabled", true);
+            $(".login-btn").removeClass("active");
+        }
     });
 </script>
 

@@ -6,7 +6,7 @@ class Carrera
     private $nombre = "";
     private $titulo = "";
     //Array de las carreras
-    private $lista_Carreras = array();
+    private $lista_Cursos = array();
     //Constructor
     public function __construct($codigo_carrera, $nombre, $titulo)
     {
@@ -14,6 +14,15 @@ class Carrera
         $this->nombre = $nombre;
         $this->titulo = $titulo;
     }
+    public function getCursos()
+    {
+        return $this->lista_Cursos;
+    }
+    public function setCursos($listacurso)
+    {
+        $this->lista_Cursos = $listacurso;
+    }
+
     //Metodos
     public function getCodigo_carrera()
     {

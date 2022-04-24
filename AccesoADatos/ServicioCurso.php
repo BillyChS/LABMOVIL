@@ -302,8 +302,11 @@ class ServicioCurso extends Servicio
             //objeto conexion
             $con = $this->conexion;
             //
+            $funcion = $con->query("SELECT BUCAR_CARRERA(' . $nombre_carrea . ')");
 
-            $BUSCAR_CURSO_NOMBRE = "SELECT * FROM CURSO INNER JOIN CARRERA ON CURSO.CARRERA='" . $nombre_carrea . "'";
+            //$funcion->execute();
+            //$funcion->fetchColumn();
+            $BUSCAR_CURSO_NOMBRE = "SELECT * FROM CURSO INNER JOIN CARRERA ON CURSO.CODIGO_CARRERA='" . $funcion . "'";
 
             //Llamado al prodecimiento almacenado
             $stmt = $con->query($BUSCAR_CURSO_NOMBRE);
@@ -325,7 +328,7 @@ class ServicioCurso extends Servicio
                 }
             } else {
                 $coleccion = array(
-                    "Error" => "No se cargaron los datos"
+                    "Error" => $funcion
                 );
             }
         } catch (Exception $EX) {
