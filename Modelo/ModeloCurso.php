@@ -62,4 +62,8 @@ class ModeloCurso
     {
         return $this->servicioCurso->buscar_curso_nombreCarrea($nombreCarrera);
     }
+    public function buscar_curso_codigoCarrera($codigoCarrera)
+    {
+        return $this->servicioCurso->buscar_curso_codigoCarrera($codigoCarrera);
+    }
 }

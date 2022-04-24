@@ -63,4 +63,9 @@ class ControladorCurso
         $cursoModel = new ModeloCurso();
         return $cursoModel->eliminar($id);
     }
+    public function buscar_curso_codigoCarrera($codigoCarrera)
+    {
+        $cursoModel = new ModeloCurso();
+        return $cursoModel->buscar_curso_codigoCarrera($codigoCarrera);
+    }
 }

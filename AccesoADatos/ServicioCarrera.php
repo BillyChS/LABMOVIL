@@ -1,6 +1,7 @@
 <?php
 include('Servicio.php');
 include('../Entidades/Carrera.php');
+include('../Entidades/Curso.php');
 //include 'Exceptions/GlobalException.php';
 //include 'Exceptions/NoDataException.php';
 
@@ -70,6 +71,7 @@ class ServicioCarrera extends Servicio
         //Statement
         $stmt = null;
         try {
+            //objeto conexion
             $con = $this->conexion;
             //
             $LISTAR_CARRERA = "SELECT * FROM CARRERA";
@@ -78,11 +80,40 @@ class ServicioCarrera extends Servicio
 
             $coleccion = array();
             foreach ($stmt as $key) {
+                $LISTAR_CURSOS = "SELECT * FROM CURSO WHERE CODIGO_CARRERA='" . $key["CODIGO_CARRERA"] . "'";
+                //Llamado al prodecimiento almacenado
+                $sql = $con->query($LISTAR_CURSOS);
+                //pstmt.registerOutParameter(1, OracleTypes.CURSOR);
+                //$stmt->execute();
+
+                //rs = (ResultSet) pstmt.getObject(1);
+                $cursos = array();
+                foreach ($sql as $k) {
+                    ///
+                    $c = new Curso(
+                        $k["CODIGO_CURSO"],
+                        $k["CODIGO_CARRERA"],
+                        $k["NO_CICLO"],
+                        $k["NOMBRE"],
+                        $k["CREDITOS"],
+                        $k["HORAS_SEMANALES"]
+                    );
+                    $curso = array(
+                        "Codigo_Curso" => $c->getCodigo_curso(),
+                        "Codigo_Carrera" => $c->getCodigo_carrera(),
+                        "No_Ciclo" => $c->getNo_ciclo(),
+                        "Nombre" => $c->getNombre(),
+                        "Creditos" => $c->getCreditos(),
+                        "Horas_Semanales" => $c->getHoras_semanales()
+                    );
+                    array_push($cursos, $curso);
+                }
                 $laCarrera = new Carrera(
                     $key["CODIGO_CARRERA"],
                     $key["NOMBRE"],
                     $key["TITULO"]
                 );
+                $laCarrera->setCursos($cursos);
                 array_push($coleccion, $laCarrera);
             }
         } catch (Exception $EX) {
@@ -169,22 +200,58 @@ class ServicioCarrera extends Servicio
             $LISTAR_CARRERA = "SELECT CODIGO_CARRERA,NOMBRE,TITULO FROM CARRERA WHERE CODIGO_CARRERA='" . $codigo_carrea . "'";
 
             //Llamado al prodecimiento almacenado
+            //Llamado al prodecimiento almacenado
             $stmt = $con->query($LISTAR_CARRERA);
             //pstmt.registerOutParameter(1, OracleTypes.CURSOR);
             //$stmt->execute();
-            $coleccion = array();
+
             //rs = (ResultSet) pstmt.getObject(1);
             if ($stmt->num_rows > 0) {
                 // output data of each row
                 while ($row = $stmt->fetch_assoc()) {
+                    $LISTAR_CURSOS = "SELECT * FROM CURSO WHERE CODIGO_CARRERA='" . $row["CODIGO_CARRERA"] . "'";
+                    //Llamado al prodecimiento almacenado
+                    $sql = $con->query($LISTAR_CURSOS);
+                    //pstmt.registerOutParameter(1, OracleTypes.CURSOR);
+                    //$stmt->execute();
 
-                    $carrera = new Carrera(
+                    //rs = (ResultSet) pstmt.getObject(1);
+                    $cursos = array();
+                    foreach ($sql as $k) {
+                        ///
+                        $c = new Curso(
+                            $k["CODIGO_CURSO"],
+                            $k["CODIGO_CARRERA"],
+                            $k["NO_CICLO"],
+                            $k["NOMBRE"],
+                            $k["CREDITOS"],
+                            $k["HORAS_SEMANALES"]
+                        );
+                        $curso = array(
+                            "Codigo_Curso" => $c->getCodigo_curso(),
+                            "Codigo_Carrera" => $c->getCodigo_carrera(),
+                            "No_Ciclo" => $c->getNo_ciclo(),
+                            "Nombre" => $c->getNombre(),
+                            "Creditos" => $c->getCreditos(),
+                            "Horas_Semanales" => $c->getHoras_semanales()
+                        );
+                        array_push($cursos, $curso);
+                    }
+                    $laCarrera = new Carrera(
                         $row["CODIGO_CARRERA"],
                         $row["NOMBRE"],
-                        $row["TITULO"]
+                        $row["TITULO"],
+
                     );
 
-                    array_push($coleccion, $carrera);
+                    $laCarrera->setCursos($cursos);
+                    $coleccion = array(
+                        "Codigo_Carrera" => $laCarrera->getCodigo_carrera(),
+                        "Nombre" => $laCarrera->getNombre(),
+                        "Titulo" => $laCarrera->getTitulo(),
+                        "Cursos" => $laCarrera->getCursos()
+                    );
+                    array_push($coleccion, $laCarrera);
                 }
             } else {
                 echo "0 results";
@@ -233,11 +300,50 @@ class ServicioCarrera extends Servicio
             if ($stmt->num_rows > 0) {
                 // output data of each row
                 while ($row = $stmt->fetch_assoc()) {
-                    $coleccion = array(
-                        "Codigo_carrera" => $row["CODIGO_CARRERA"],
-                        "Nombre" => $row["NOMBRE"],
-                        "Titulo" => $row["TITULO"]
+
+                    $LISTAR_CURSOS = "SELECT * FROM CURSO WHERE CODIGO_CARRERA='" . $row["CODIGO_CARRERA"] . "'";
+                    //Llamado al prodecimiento almacenado
+                    $sql = $con->query($LISTAR_CURSOS);
+                    //pstmt.registerOutParameter(1, OracleTypes.CURSOR);
+                    //$stmt->execute();
+
+                    //rs = (ResultSet) pstmt.getObject(1);
+                    $cursos = array();
+                    foreach ($sql as $k) {
+                        ///
+                        $c = new Curso(
+                            $k["CODIGO_CURSO"],
+                            $k["CODIGO_CARRERA"],
+                            $k["NO_CICLO"],
+                            $k["NOMBRE"],
+                            $k["CREDITOS"],
+                            $k["HORAS_SEMANALES"]
+                        );
+                        $curso = array(
+                            "Codigo_Curso" => $c->getCodigo_curso(),
+                            "Codigo_Carrera" => $c->getCodigo_carrera(),
+                            "No_Ciclo" => $c->getNo_ciclo(),
+                            "Nombre" => $c->getNombre(),
+                            "Creditos" => $c->getCreditos(),
+                            "Horas_Semanales" => $c->getHoras_semanales()
+                        );
+                        array_push($cursos, $curso);
+                    }
+                    $laCarrera = new Carrera(
+                        $row["CODIGO_CARRERA"],
+                        $row["NOMBRE"],
+                        $row["TITULO"],
+
                     );
+
+                    $laCarrera->setCursos($cursos);
+                    $coleccion = array(
+                        "Codigo_Carrera" => $laCarrera->getCodigo_carrera(),
+                        "Nombre" => $laCarrera->getNombre(),
+                        "Titulo" => $laCarrera->getTitulo(),
+                        "Cursos" => $laCarrera->getCursos()
+                    );
+                    array_push($coleccion, $laCarrera);
                 }
             } else {
                 echo "0 results";

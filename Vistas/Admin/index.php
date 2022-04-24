@@ -59,7 +59,7 @@
                             </form>
                         </div>
 
-                        <table id="tabla" class=" table table-dark table-hover">
+                        <table id="tabla" class="  table table-dark table-hover">
                             <thead class="text-center">
                                 <tr>
                                     <th scope="col">Codigo Curso</th>
@@ -84,33 +84,35 @@
                         Mantenimiento de Carreras
                     </button>
                 </h2>
-                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                         <div class="container col-5">
-                            <form action="http://localhost/LABMOVIL/rutas/cursos.php" class="buscador">
+                            <form action="" class="buscador">
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control form-control-lg" placeholder="Buscar">
-                                    <button type="submit" class="input-group-text btn-success"><i class="bi bi-search me-2"></i> Buscar</button>
+                                    <input type="text" class="form-control form-control-lg" id="js-nombre" placeholder="Buscar" />
+                                    <button onclick="handleSubmit()" type="button" class=" input-group-text btn-success"><i class="bi bi-search me-2"></i> Buscar</button>
                                 </div>
                             </form>
                         </div>
                         <div class="col-12">
-                            <table id="tabla" class=" table table-dark table-hover">
-                                <thead class="text-center">
+                            <table class="text-center table table-dark table-hover" id="js-users">
+                                <thead>
                                     <tr>
                                         <th scope="col">Codigo Carrera</th>
                                         <th scope="col">Nombre</th>
                                         <th scope="col">Titulo</th>
+                                        <th scope="col">Cursos</th>
                                     </tr>
                                 </thead>
-                                <tbody id="tbody_carreras" class="text-center">
 
-                                </tbody>
+                                <tbody id="js-users-table"></tbody>
                             </table>
+
+                            <div id="js-modals"></div>
 
                             <div class=" p-5 offset-1 col-10">
 
-                                <h3 class="text-center">Agregar Curso</h3>
+                                <h3 class="text-center">Agregar Carrera</h3>
                                 <form id="form">
                                     <div class="mb-3">
                                         <label for="Codigo de Carrera" class="form-label">Codigo_carrera</label>
@@ -198,16 +200,13 @@
 <script>
     var tabla = document.querySelector("#tabla");
 
-    var dataTable = new DataTable(tabla);
-    var carreras
 
-
-    const ObtenerCarreras = async () => {
+    const ObtenerCursos = async () => {
         try {
             var respuesta = await axios.get('http://localhost/LABMOVIL/rutas/cursos.php')
-            carreras = respuesta.data
+            cursos = respuesta.data
 
-            for (let carrera of carreras) {
+            for (let carrera of cursos) {
                 console.log(carrera)
                 var tr = document.createElement("tr")
                 var thbody = document.getElementById("tbody_carreras")
@@ -240,21 +239,65 @@
         }
     }
 
+    const BASE_PATH = "http://localhost/LABMOVIL/rutas"
+    const ObtenerCarreras = async () => {
+        try {
+            var respuesta = await axios.get(`${BASE_PATH}/carrera.php`)
+            carreras = respuesta
+        } catch (error) {
+            console.log(error)
+        }
+    }
     ObtenerCarreras();
+    ObtenerCursos();
 
-
-
-
-
-    const botonBuscarCursos = document.getElementById('buscarCursos').addEventListener('click', function() {
-        var valor = document.getElementById('inputCarrera').nodeValue();
-        console.log(valor)
-        window.location.href = `http://localhost/LABMOVIL/rutas/cursos.php?Nombre=${valor}`
-    })
-
-    var tabla = document.querySelector("#tabla");
-    var dataTable = new DataTable(tabla);
     var carreras
+    //Buscar Carrera
+
+
+
+    const cargarCarreras = async () => {
+        console.log("working")
+        const val = $("#js-nombre").val()
+        var respuesta = await axios.get(`${BASE_PATH}/carrera.php`)
+        carreras = respuesta.data
+        for (let carrera of carreras) {
+            var tr = document.createElement("tr")
+            var thbody = document.getElementById("js-users-table")
+
+            const codigo_carrera = document.createElement("td");
+            const nombre = document.createElement("td");
+            const titulo = document.createElement("td");
+            const col = document.createElement("td")
+            col.setAttribute("class", " text-center p-2")
+
+            const cursos = document.createElement("a");
+            const editar = document.createElement("a");
+            editar.setAttribute("class", " btn btn-primary")
+            editar.setAttribute("type", "button")
+            editar.setAttribute("href", "editarCarreras.php")
+
+            cursos.setAttribute("class", "mr-5 btn btn-primary")
+            cursos.setAttribute("type", "button")
+
+
+            codigo_carrera.innerText = carrera["Codigo_Carrera"]
+            nombre.textContent = carrera["Nombre"]
+            titulo.innerText = carrera["Titulo"]
+            cursos.textContent = "Cursos"
+            editar.textContent = "Editar"
+            tr.appendChild(codigo_carrera)
+            tr.appendChild(nombre)
+            tr.appendChild(titulo)
+            col.appendChild(cursos)
+            col.appendChild(editar)
+            tr.appendChild(col)
+
+            thbody.appendChild(tr)
+
+        }
+    }
+    cargarCarreras();
 </script>
 
 

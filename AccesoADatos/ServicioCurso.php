@@ -168,6 +168,64 @@ class ServicioCurso extends Servicio
 
 
     //Busqueda por carrera
+
+    public function buscar_curso_codigoCarrera($codigoCarrera)
+    {
+
+        try {
+            $this->conectar();
+        } catch (Exception $e) {
+            echo "Exception:" . $e->getMessage();
+        }
+
+        //Statement
+        $stmt = null;
+        try {
+
+            //objeto conexion
+            $con = $this->conexion;
+            //
+            $BUSCAR_CURSO_NOMBRE = "SELECT * FROM CURSO WHERE CODIGO_CARRERA='" . $codigoCarrera . "'";
+
+            //Llamado al prodecimiento almacenado
+            $stmt = $con->query($BUSCAR_CURSO_NOMBRE);
+            //pstmt.registerOutParameter(1, OracleTypes.CURSOR);
+            //$stmt->execute();
+            $cursos = array();
+            //rs = (ResultSet) pstmt.getObject(1);
+            if ($stmt->num_rows > 0) {
+                // output data of each row
+                while ($row = $stmt->fetch_assoc()) {
+                    $coleccion = array(
+                        "Codigo_Curso" => $row["CODIGO_CURSO"],
+                        "Codigo_Carrera" => $row["CODIGO_CARRERA"],
+                        "No_Ciclo" => $row["NO_CICLO"],
+                        "Nombre" => $row["NOMBRE"],
+                        "Creditos" => $row["CREDITOS"],
+                        "Horas_Semanales" => $row["HORAS_SEMANALES"]
+                    );
+                    array_push($cursos, $coleccion);
+                }
+            } else {
+                $coleccion = array(
+                    "Error" => "No se cargaron los datos"
+                );
+            }
+        } catch (Exception $EX) {
+            echo "Exception, sentencia no valida: " . $EX->getMessage();
+        } finally {
+            try {
+                //Se cierra el statement
+                if ($stmt != null) {
+                    $stmt->close();
+                }
+                $this->desconectar();
+            } catch (mysqli_sql_exception $s) {
+                echo "Error" . $s->getMessage();
+            }
+        }
+        return $cursos;
+    }
     public function buscar_curso_nombre($nombre)
     {
 

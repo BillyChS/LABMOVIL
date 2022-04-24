@@ -38,6 +38,11 @@ switch ($_SERVER['REQUEST_METHOD']) {
             $resultado = $cursoControler->searchDataName($_GET["Nombre"]);
 
             echo json_encode($resultado);
+        } elseif (isset($_GET['Codigo_Carrera'])) {
+
+            $resultado = $cursoControler->buscar_curso_codigoCarrera($_GET["Codigo_Carrera"]);
+
+            echo json_encode($resultado);
         } else {
             $resultado = $cursoControler->getData();
 
