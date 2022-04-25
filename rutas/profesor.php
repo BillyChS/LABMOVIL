@@ -11,8 +11,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
         //Obtenemos la informacion de la URL
         $_POST =  json_decode(file_get_contents('php://input'), true);
         //Se crea una instancia de Carrera con los datos
-        $profesor = new Profesor($_POST["Cedula_profesor"], $_POST["Nombre"], $_POST["Telefono"],$_POST["Email"]);
-
+        $profesor = new Profesor($_POST["Cedula_Profesor"], $_POST["Nombre"], $_POST["Telefono"],$_POST["Email"]);
+        
         //Se llama al controlador y se envia la info
         $profesorController->insertData($profesor);
         //Imprimimos el resultado
@@ -28,9 +28,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
             $resultado = $profesorController->searchDataId($_GET["Cedula"]);
           
             echo json_encode($resultado);
-        } elseif(isset($_GET['Nombre_Profesor'])){
+        } elseif(isset($_GET['Nombre'])){
 
-            $resultado=$profesorController->searchDataName($_GET["Nombre_Profesor"]);
+            $resultado=$profesorController->searchDataName($_GET["Nombre"]);
             echo json_encode($resultado);
         }
         /*else{
