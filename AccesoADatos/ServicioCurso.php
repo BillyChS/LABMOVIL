@@ -166,7 +166,6 @@ class ServicioCurso extends Servicio
         }
     }
 
-
     //Busqueda por carrera
 
     public function buscar_curso_codigoCarrera($codigoCarrera)
@@ -226,6 +225,8 @@ class ServicioCurso extends Servicio
         }
         return $cursos;
     }
+
+
     public function buscar_curso_nombre($nombre)
     {
 
@@ -250,6 +251,7 @@ class ServicioCurso extends Servicio
             //$stmt->execute();
 
             //rs = (ResultSet) pstmt.getObject(1);
+            $cursos = array();
             if ($stmt->num_rows > 0) {
                 // output data of each row
                 while ($row = $stmt->fetch_assoc()) {
@@ -261,6 +263,7 @@ class ServicioCurso extends Servicio
                         "Creditos" => $row["CREDITOS"],
                         "Horas_Semanales" => $row["HORAS_SEMANALES"]
                     );
+                    array_push($cursos, $coleccion);
                 }
             } else {
                 $coleccion = array(
@@ -280,8 +283,9 @@ class ServicioCurso extends Servicio
                 echo "Error" . $s->getMessage();
             }
         }
-        return $coleccion;
+        return $cursos;
     }
+
 
 
     //Busqueda por carrera
@@ -364,7 +368,7 @@ class ServicioCurso extends Servicio
 
             //$funcion->execute();
             //$funcion->fetchColumn();
-            $BUSCAR_CURSO_NOMBRE = "SELECT * FROM CURSO INNER JOIN CARRERA ON CURSO.CODIGO_CARRERA='" . $funcion . "'";
+            $BUSCAR_CURSO_NOMBRE = "SELECT * FROM CURSO INNER JOIN CARRERA ON CARRERA.CODIGO_CARRERA='EIF4'";
 
             //Llamado al prodecimiento almacenado
             $stmt = $con->query($BUSCAR_CURSO_NOMBRE);
@@ -372,6 +376,7 @@ class ServicioCurso extends Servicio
             //$stmt->execute();
 
             //rs = (ResultSet) pstmt.getObject(1);
+            $cursos = array();
             if ($stmt->num_rows > 0) {
                 // output data of each row
                 while ($row = $stmt->fetch_assoc()) {
@@ -383,6 +388,7 @@ class ServicioCurso extends Servicio
                         "Creditos" => $row["CREDITOS"],
                         "Horas_Semanales" => $row["HORAS_SEMANALES"]
                     );
+                    array_push($cursos, $coleccion);
                 }
             } else {
                 $coleccion = array(
@@ -402,9 +408,8 @@ class ServicioCurso extends Servicio
                 echo "Error" . $s->getMessage();
             }
         }
-        return $coleccion;
+        return $cursos;
     }
-
 
 
 

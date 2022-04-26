@@ -41,11 +41,7 @@ class CarreraModelo
 
     public function insertar(Carrera $carrera)
     {
-        $this->servicioCarrera->insertar_carrera($carrera);
-        /*
-        setChanged();
-        this.notifyObservers(null);
-        */
+        return $this->servicioCarrera->insertar_carrera($carrera);
     }
 
     public function modificar(Carrera $carrera)

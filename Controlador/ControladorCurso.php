@@ -32,10 +32,10 @@ class ControladorCurso
         return $data;
     }
 
-    public function updateData($carrera)
+    public function updateData($curso)
     {
         $cursoModel = new ModeloCurso();
-        $cursoModel->modificar($carrera);
+        $cursoModel->modificar($curso);
     }
     //Buscar por codigo de curso
     public function searchDataCode($id)
@@ -54,8 +54,10 @@ class ControladorCurso
     //Por nombre de carrera
     public function buscarPorNombreCarrera($nombre_carrera)
     {
+
         $cursoModel = new ModeloCurso();
         $data = $cursoModel->buscarPorNombreCarrera($nombre_carrera);
+
         return $data;
     }
     public function deleteData($id)

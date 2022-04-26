@@ -36,9 +36,9 @@ class ModeloCurso
         $this->servicioCurso->insertar_curso($curso);
     }
 
-    public function modificar($carrera)
+    public function modificar($curso)
     {
-        $this->servicioCurso->modificar_curso($carrera);
+        $this->servicioCurso->modificar_curso($curso);
     }
     public function eliminar($id)
     {

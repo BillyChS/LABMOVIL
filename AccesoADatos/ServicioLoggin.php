@@ -4,64 +4,57 @@ include 'Exceptions/GlobalException.php';
 include 'Exceptions/NoDataException.php';
 
 
-class ServicioLoggin extends Servicio{
+class ServicioLoggin extends Servicio
+{
 
 
 
 
     public function Ingresar()
     {
-        
+
         try {
             $this->conectar();
         } catch (Exception $e) {
             echo "Exception:" . $e->getMessage();
         }
-        
+
         $stmt = null;
-        try{
+        try {
             $con = $this->conexion;
             ob_start();
-            $usuario=$_POST['cedula'];
-            $password=md5($_POST['clave']);
-            $query="SELECT * FROM USUARIOS WHERE CEDULA='$usuario' AND CLAVE='$password'";
-           $stmt=$con->query($query);
-           // $consulta=$mysqly->query($query);
-            
-            
-            if($stmt->num_rows>=1){
-            
-                $fila=$consulta2->fetch_array(MYSQLI_ASSOC);
-            
+            $usuario = $_POST['cedula'];
+            $password = md5($_POST['clave']);
+            $query = "SELECT * FROM USUARIOS WHERE CEDULA='$usuario' AND CLAVE='$password'";
+            $stmt = $con->query($query);
+            // $consulta=$mysqly->query($query);
+
+
+            if ($stmt->num_rows >= 1) {
+                //Error linea 35 
+                $fila = $stmt->fetch_array(MYSQLI_ASSOC);
+
                 session_start();
-                
+
                 //$_SESSION['user']=$fila['Nombre'];
-                $_SESSION['Identi']=$fila['Cedula'];
-                $_SESSION['rol']=$fila['ROL'];
-                $_SESSION['verificar']=true;
+                $_SESSION['Identi'] = $fila['Cedula'];
+                $_SESSION['rol'] = $fila['ROL'];
+                $_SESSION['verificar'] = true;
                 $_SESSION['start'] = time();
                 $_SESSION['expire'] = $_SESSION['start'] + (5 * 60);
-                $state=null;
-            
-                
-                $_SESSION['Rol']=$fila['$state'];
-            
-                header("Location: vistas/Users/index.php");//cambiar ruta
-                
-            }
-            else{
-            
+                $state = null;
+
+
+                $_SESSION['Rol'] = $fila['$state'];
+
+                header("Location: vistas/Users/index.php"); //cambiar ruta
+
+            } else {
+
                 echo "Los datos son incorrectos";
-                header("Location: Login.php");//cambiar ruta
+                header("Location: Login.php"); //cambiar ruta
             }
-        
-        
-        
-        
-            
-        }    
-        
-        catch (Exception $EX) {
+        } catch (Exception $EX) {
             echo "Error" . $EX->getMessage();
         } finally {
             try {
@@ -104,4 +97,3 @@ class ServicioLoggin extends Servicio{
 //         }
 //     }
 // }
- 

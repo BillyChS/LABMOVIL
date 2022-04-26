@@ -11,8 +11,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
         //Obtenemos la informacion de la URL
         $_POST =  json_decode(file_get_contents('php://input'), true);
         //Se crea una instancia de Carrera con los datos
-        $profesor = new Profesor($_POST["Cedula_Profesor"], $_POST["Nombre"], $_POST["Telefono"],$_POST["Email"]);
-        
+        $profesor = new Profesor($_POST["Cedula_Profesor"], $_POST["Nombre"], $_POST["Telefono"], $_POST["Email"]);
+
         //Se llama al controlador y se envia la info
         $profesorController->insertData($profesor);
         //Imprimimos el resultado
@@ -26,11 +26,11 @@ switch ($_SERVER['REQUEST_METHOD']) {
         if (isset($_GET['Cedula'])) {
 
             $resultado = $profesorController->searchDataId($_GET["Cedula"]);
-          
-            echo json_encode($resultado);
-        } elseif(isset($_GET['Nombre'])){
 
-            $resultado=$profesorController->searchDataName($_GET["Nombre"]);
+            echo json_encode($resultado);
+        } elseif (isset($_GET['Nombre'])) {
+
+            $resultado = $profesorController->searchDataName($_GET["Nombre"]);
             echo json_encode($resultado);
         }
         /*else{
@@ -42,27 +42,27 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
         break;
 
-    // case 'PUT':
+        // case 'PUT':
 
-    //     $_PUT =  json_decode(file_get_contents('php://input'), true);
-    //     //Se crea una instancia de Carrera con los datos
-    //     $carrera = new Carrera($_PUT["Codigo_carrera"], $_PUT["Nombre"], $_PUT["Titulo"]);
-    //     //Se llama al controlador y se envia la info
-    //     $profesorController->updateData($carrera);
+        //     $_PUT =  json_decode(file_get_contents('php://input'), true);
+        //     //Se crea una instancia de Carrera con los datos
+        //     $carrera = new Carrera($_PUT["Codigo_carrera"], $_PUT["Nombre"], $_PUT["Titulo"]);
+        //     //Se llama al controlador y se envia la info
+        //     $profesorController->updateData($carrera);
 
-    //     $resultado["mensaje"] = "Actualizar: " . $_GET['Codigo_carrera'] . "Informacion a actualizar: "
-    //         . json_encode($_PUT);
+        //     $resultado["mensaje"] = "Actualizar: " . $_GET['Codigo_carrera'] . "Informacion a actualizar: "
+        //         . json_encode($_PUT);
 
-    //     echo json_encode($resultado);
-    //     break;
+        //     echo json_encode($resultado);
+        //     break;
 
-    // case 'DELETE':
+        // case 'DELETE':
 
-    //     //$resultado["mensaje"] = "Eliminar la carrera con el codigo de carrera: " . $_GET['id'];
-    //     $resultado = $profesorController->deleteData($_GET["id"]);
-    //     echo json_encode($resultado);
+        //     //$resultado["mensaje"] = "Eliminar la carrera con el codigo de carrera: " . $_GET['id'];
+        //     $resultado = $profesorController->deleteData($_GET["id"]);
+        //     echo json_encode($resultado);
 
-    //     break;
+        //     break;
 }
 
  

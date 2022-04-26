@@ -55,11 +55,11 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
         $_PUT =  json_decode(file_get_contents('php://input'), true);
         //Se crea una instancia de Carrera con los datos
-        $carrera = new Carrera($_PUT["Codigo_carrera"], $_PUT["Nombre"], $_PUT["Titulo"]);
+        $curso = new Curso($_PUT["Codigo_Curso"], $_PUT["Codigo_Carrera"], $_PUT["No_Ciclo"], $_PUT["Nombre"], $_PUT["Creditos"], $_PUT["Horas_Semanales"]);
         //Se llama al controlador y se envia la info
-        $carreraControler->updateData($carrera);
+        $cursoControler->updateData($curso);
 
-        $resultado["mensaje"] = "Actualizar: " . $_GET['Codigo_carrera'] . "Informacion a actualizar: "
+        $resultado["mensaje"] = "Actualizar: " . $_PUT['Codigo_Carrera'] . "Informacion a actualizar: "
             . json_encode($_PUT);
 
         echo json_encode($resultado);
@@ -68,7 +68,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
     case 'DELETE':
 
         //$resultado["mensaje"] = "Eliminar la carrera con el codigo de carrera: " . $_GET['id'];
-        $resultado = $carreraControler->deleteData($_GET["id"]);
+        $resultado = $cursoControler->deleteData($_GET["Codigo_Curso"]);
         echo json_encode($resultado);
 
         break;

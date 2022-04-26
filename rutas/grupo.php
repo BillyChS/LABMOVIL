@@ -15,14 +15,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
         //Obtenemos la informacion de la URL
         $_POST =  json_decode(file_get_contents('php://input'), true);
         //Se crea una instancia de Carrera con los datos
-        $ciclo = new Ciclo("", "", "", "", "");
-        $ciclo->setNo_ciclo($_POST["No_Ciclo"]);
-
-        $curso = new Curso("", "", "", "", "", "");
-        $curso->setCodigo_curso($_POST["Codigo_Curso"]);
-
-        $profesor = new Profesor("", "", "", "");
-        $profesor->setCedula_profesor($_POST["Cedula_Profesor"]);
 
         $grupo = new Grupo($_POST["Numero_Grupo"], $_POST["No_Ciclo"], $_POST["Codigo_Curso"], $_POST["Cedula_Profesor"], $_POST["Horario"]);
 

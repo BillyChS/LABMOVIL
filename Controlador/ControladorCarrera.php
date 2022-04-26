@@ -11,24 +11,14 @@ class ControladorCarrera
     public function insertData($carrera)
     {
         $carreraModel = new CarreraModelo();
-        $carreraModel->insertar($carrera);
+        return $carreraModel->insertar($carrera);
     }
     //Obtener Carrera
     public function getData()
     {
         $data = array();
         $carreraModel = new CarreraModelo();
-        $data = array();
-        foreach ($carreraModel->listar() as $s) {
-            $d = array(
-                "Codigo_Carrera" => $s->getCodigo_carrera(),
-                "Nombre" => $s->getNombre(),
-                "Titulo" => $s->getTitulo(),
-                "Cursos" => $s->getCursos()
-            );
-            array_push($data, $d);
-        }
-        return $data;
+        return $carreraModel->listar();
     }
 
     public function updateData($carrera)

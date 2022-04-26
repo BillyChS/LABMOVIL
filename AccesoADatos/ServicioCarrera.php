@@ -40,7 +40,7 @@ class ServicioCarrera extends Servicio
             //Seteamos los parametros 
             $stmt->bind_param("sss", $codigo_carrea, $nombre, $titulo);
             //Ejecutar el statement
-            $stmt->execute();
+            $res = $stmt->execute();
         } catch (Exception $EX) {
             echo "Error" . $EX->getMessage();
         } finally {
@@ -53,6 +53,11 @@ class ServicioCarrera extends Servicio
             } catch (mysqli_sql_exception $s) {
                 echo "Error" . $s->getMessage();
             }
+        }
+        if ($res == true) {
+            return $res = "Se inserto correctamente";
+        } else {
+            return $res = "No se inserto correctamente";
         }
     }
 
@@ -114,7 +119,13 @@ class ServicioCarrera extends Servicio
                     $key["TITULO"]
                 );
                 $laCarrera->setCursos($cursos);
-                array_push($coleccion, $laCarrera);
+                $data = array(
+                    "Codigo_Carrera" => $laCarrera->getCodigo_carrera(),
+                    "Nombre" => $laCarrera->getNombre(),
+                    "Titulo" => $laCarrera->getTitulo(),
+                    "Cursos" => $laCarrera->getCursos()
+                );
+                array_push($coleccion, $data);
             }
         } catch (Exception $EX) {
             echo "Exception, sentencia no valida: " . $EX->getMessage();
@@ -295,7 +306,7 @@ class ServicioCarrera extends Servicio
             $stmt = $con->query($LISTAR_CARRERA);
             //pstmt.registerOutParameter(1, OracleTypes.CURSOR);
             //$stmt->execute();
-
+            $coleccion = array();
             //rs = (ResultSet) pstmt.getObject(1);
             if ($stmt->num_rows > 0) {
                 // output data of each row
@@ -329,13 +340,13 @@ class ServicioCarrera extends Servicio
                         );
                         array_push($cursos, $curso);
                     }
+
                     $laCarrera = new Carrera(
                         $row["CODIGO_CARRERA"],
                         $row["NOMBRE"],
                         $row["TITULO"],
 
                     );
-
                     $laCarrera->setCursos($cursos);
                     $coleccion = array(
                         "Codigo_Carrera" => $laCarrera->getCodigo_carrera(),
@@ -346,7 +357,7 @@ class ServicioCarrera extends Servicio
                     array_push($coleccion, $laCarrera);
                 }
             } else {
-                echo "0 results";
+                $coleccion = "No hay resulados";
             }
         } catch (Exception $EX) {
             echo "Exception, sentencia no valida: " . $EX->getMessage();
@@ -363,9 +374,6 @@ class ServicioCarrera extends Servicio
         }
         return $coleccion;
     }
-
-
-
 
 
 
@@ -388,14 +396,7 @@ class ServicioCarrera extends Servicio
 
             $stmt->bind_param("s", $codigoCarrera);
             //Ejecutar el statement
-            $stmt->execute();
-            /*
-            if ($res == 0) {
-                echo "No se realizo el borrado";
-            } else {
-                echo "\nEliminación Satisfactoria!";
-            }
-            */
+            $res = $stmt->execute();
         } catch (Exception $EX) {
             echo "Error" . $EX->getMessage();
         } finally {
@@ -408,6 +409,11 @@ class ServicioCarrera extends Servicio
             } catch (mysqli_sql_exception $s) {
                 echo "Error" . $s->getMessage();
             }
+        }
+        if ($res == true) {
+            return "No se realizo el borrado o la carrera no existe";
+        } else {
+            return "Eliminación Satisfactoria!";
         }
     }
 }
