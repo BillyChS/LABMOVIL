@@ -16,23 +16,8 @@ class ControladorAlumno
     public function getData()
     {
         $alumnoModel = new ModeloAlumno();
-        $data = array();
 
-
-
-        foreach ($alumnoModel->listar() as $s) {
-            $d = array(
-                "Cedula_alumno" => $s->getCedula_alumno(),
-                "Nombre" => $s->getNombre(),
-                "Telefono" => $s->getTelefono(),
-                "Email" => $s->getEmail(),
-                "Fecha_nacimineto" => $s->getFech_nac(),
-                "Carrera" => $s->getCarrera()
-            );
-            array_push($data, $d);
-        }
-
-        return $data;
+        return $alumnoModel->listar();
     }
 
     // public function updateData($alumno)
@@ -54,7 +39,7 @@ class ControladorAlumno
         $data = $alumnoModel->buscarPorNombre($nombre);
         return $data;
     }
-    
+
     //Buscar por carrera
     public function searchDataCareer($carrera)
     {
@@ -62,7 +47,7 @@ class ControladorAlumno
         $data = $alumnoModel->buscarPorCarrera($carrera);
         return $data;
     }
-    
+
     public function deleteData($id)
     {
         $alumnoModel = new ModeloAlumno();

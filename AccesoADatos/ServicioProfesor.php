@@ -14,7 +14,7 @@ class ServicioProfesor extends Servicio
 
     public function __construct()
     {
-       // $elProfesor=new Profesor()
+        // $elProfesor=new Profesor()
     }
 
     public function insertar_profesor($elProfesor)
@@ -37,7 +37,7 @@ class ServicioProfesor extends Servicio
             $cedula_profesor = $elProfesor->getCedula_profesor();
             $nombre = $elProfesor->getNombre();
             $telefono = $elProfesor->getTelefono();
-            $email=$elProfesor->getEmail();
+            $email = $elProfesor->getEmail();
             //Seteamos los parametros 
             $stmt->bind_param("ssss", $cedula_profesor, $nombre, $telefono, $email);
             //Ejecutar el statement
@@ -57,63 +57,8 @@ class ServicioProfesor extends Servicio
         }
     }
 
-    /**/
-    // public function listar_profesor()// no se si desarrollar para profesor
-    // {
-
-    //     try {
-    //         $this->conectar();
-    //     } catch (Exception $e) {
-    //         echo "Exception:" . $e->getMessage();
-    //     }
-
-    //     $coleccion = array();
-
-    //     //Statement
-    //     $stmt = null;
-    //     try {
-    //         //objeto conexion
-    //         $con = $this->conexion;
-    //         //
-    //         $LISTAR_CARRERA = "SELECT * FROM CARRERA";
-    //         //Llamado al prodecimiento almacenado
-    //         $stmt = $con->query($LISTAR_CARRERA);
-    //         //pstmt.registerOutParameter(1, OracleTypes.CURSOR);
-    //         //$stmt->execute();
-
-    //         //rs = (ResultSet) pstmt.getObject(1);
-
-    //         foreach ($stmt as $key) {
-    //             $elProfesor = new Carrera(
-    //                 $key["CODIGO_CARRERA"],
-    //                 $key["NOMBRE"],
-    //                 $key["TITULO"]
-    //             );
-    //             array_push($coleccion, $elProfesor);
-    //         }
-    //     } catch (Exception $EX) {
-    //         echo "Exception, sentencia no valida: " . $EX->getMessage();
-    //     } finally {
-    //         try {
-    //             //Se cierra el statement
-    //             if ($stmt != null) {
-    //                 $stmt->close();
-    //             }
-    //             $this->desconectar();
-    //         } catch (mysqli_sql_exception $s) {
-    //             echo "Error" . $s->getMessage();
-    //         }
-    //     }
-    //     if ($coleccion == null || sizeof($coleccion) == 0) {
-    //         echo "No hay datos";
-    //     }
-    //     return $coleccion;
-    // }
-
-  
 
 
-   
 
     //Busqueda por codigo de carrera
     public function buscar_profesor_cedula($cedula_profesor)
@@ -146,7 +91,7 @@ class ServicioProfesor extends Servicio
                         "Cedula_profesor" => $row["CEDULA_PROFESOR"],
                         "Nombre" => $row["NOMBRE"],
                         "Telefono" => $row["TELEFONO"],
-                        "Email"=>$row["EMAIL"]
+                        "Email" => $row["EMAIL"]
                     );
                 }
             } else {
@@ -200,7 +145,7 @@ class ServicioProfesor extends Servicio
                         "Cedula_profesor" => $row["CEDULA_PROFESOR"],
                         "Nombre" => $row["NOMBRE"],
                         "Telefono" => $row["TELEFONO"],
-                        "Email"=>$row["EMAIL"]
+                        "Email" => $row["EMAIL"]
                     );
                 }
             } else {
@@ -221,11 +166,4 @@ class ServicioProfesor extends Servicio
         }
         return $coleccion;
     }
-
-
-
-
-
-
-    
 }

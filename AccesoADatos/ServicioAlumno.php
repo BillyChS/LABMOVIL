@@ -10,7 +10,7 @@ class ServicioAlumno extends Servicio
     private  $INSERTAR_ALUMNO = "call INSERTAR_ALUMNO(?,?,?,?,?,?)";
     private  $MODIFICAR_ALUMNO = "call MODIFICAR_ALUMNO(?,?,?,?)";
     private  $ELIMINAR_ALUMNO = "call ELIMINAR_ALUMNO(?)";
-    private $eliminar="call ELIMINAR_ALUMNO(?)";
+    private $eliminar = "call ELIMINAR_ALUMNO(?)";
     //private $alumno = new Carrera("","","");
 
     public function __construct()
@@ -18,7 +18,7 @@ class ServicioAlumno extends Servicio
     }
 
 
-    
+
 
 
     public function insertar_alumno($alumno)
@@ -41,11 +41,11 @@ class ServicioAlumno extends Servicio
             $cedula = $alumno->getCedula_alumno();
             $nombre = $alumno->getNombre();
             $telefono = $alumno->getTelefono();
-            $email=$alumno->getEmail();
-            $fecha_n=$alumno->getFech_nac();
-            $carrera=$alumno->getCarrera();
+            $email = $alumno->getEmail();
+            $fecha_n = $alumno->getFech_nac();
+            $carrera = $alumno->getCarrera();
             //Seteamos los parametros 
-            $stmt->bind_param("ssssss", $cedula, $nombre, $telefono,$email,$fecha_n,$carrera);
+            $stmt->bind_param("ssssss", $cedula, $nombre, $telefono, $email, $fecha_n, $carrera);
             //Ejecutar el statement
             $stmt->execute();
         } catch (Exception $EX) {
@@ -64,7 +64,7 @@ class ServicioAlumno extends Servicio
     }
 
 
-    public function listar_alumno()// no se si desarrollar para profesor
+    public function listar_alumno() // no se si desarrollar para profesor
     {
 
         try {
@@ -84,10 +84,10 @@ class ServicioAlumno extends Servicio
             $LISTAR_ALUMNO = "SELECT * FROM ALUMNO";
             //Llamado al prodecimiento almacenado
             $stmt = $con->query($LISTAR_ALUMNO);
-           
+
 
             foreach ($stmt as $key) {
-                $alumno = new Carrera(
+                $alumno = new Alumno(
                     $key["CEDULA_ALUMNO"],
                     $key["NOMBRE"],
                     $key["TELEFONO"],
@@ -95,7 +95,15 @@ class ServicioAlumno extends Servicio
                     $key["FECHA_NACIMIENTO"],
                     $key["CARRERA"]
                 );
-                array_push($coleccion, $alumno);
+                $d = array(
+                    "Cedula_Alumno" => $alumno->getCedula_alumno(),
+                    "Nombre" => $alumno->getNombre(),
+                    "Telefono" => $alumno->getTelefono(),
+                    "Email" => $alumno->getEmail(),
+                    "Fecha_Nacimiento" => $alumno->getFech_nac(),
+                    "Carrera" => $alumno->getCarrera()
+                );
+                array_push($coleccion, $d);
             }
         } catch (Exception $EX) {
             echo "Exception, sentencia no valida: " . $EX->getMessage();
@@ -116,10 +124,10 @@ class ServicioAlumno extends Servicio
         return $coleccion;
     }
 
-  
 
 
-   
+
+
 
     //Busqueda por codigo de carrera
     public function buscar_alumno_cedula($cedula)
@@ -152,9 +160,9 @@ class ServicioAlumno extends Servicio
                         "Cedula_alumno" => $row["CEDULA_ALUMNO"],
                         "Nombre" => $row["NOMBRE"],
                         "Telefono" => $row["TELEFONO"],
-                        "Email"=>$row["EMAIL"],
-                        "Fecha_nacimiento"=>$row["FECHA_NACIMIENTO"],
-                        "Carrera"=>$row["CARRERA"]
+                        "Email" => $row["EMAIL"],
+                        "Fecha_nacimiento" => $row["FECHA_NACIMIENTO"],
+                        "Carrera" => $row["CARRERA"]
                     );
                 }
             } else {
@@ -208,9 +216,9 @@ class ServicioAlumno extends Servicio
                         "Cedula_alumno" => $row["CEDULA_ALUMNO"],
                         "Nombre" => $row["NOMBRE"],
                         "Telefono" => $row["TELEFONO"],
-                        "Email"=>$row["EMAIL"],
-                        "Fecha_nacimiento"=>$row["FECHA_NACIMIENTO"],
-                        "Carrera"=>$row["CARRERA"]
+                        "Email" => $row["EMAIL"],
+                        "Fecha_nacimiento" => $row["FECHA_NACIMIENTO"],
+                        "Carrera" => $row["CARRERA"]
                     );
                 }
             } else {
@@ -261,9 +269,9 @@ class ServicioAlumno extends Servicio
                         "Cedula_alumno" => $row["CEDULA_ALUMNO"],
                         "Nombre" => $row["NOMBRE"],
                         "Telefono" => $row["TELEFONO"],
-                        "Email"=>$row["EMAIL"],
-                        "Fecha_nacimiento"=>$row["FECHA_NACIMIENTO"],
-                        "Carrera"=>$row["CARRERA"]
+                        "Email" => $row["EMAIL"],
+                        "Fecha_nacimiento" => $row["FECHA_NACIMIENTO"],
+                        "Carrera" => $row["CARRERA"]
                     );
                 }
             } else {
@@ -284,7 +292,7 @@ class ServicioAlumno extends Servicio
         }
         return $coleccion;
     }
-    
+
 
     public function eliminar_alumno($codigoAlumno)
     {
@@ -327,7 +335,4 @@ class ServicioAlumno extends Servicio
             }
         }
     }
-
-
-    
 }

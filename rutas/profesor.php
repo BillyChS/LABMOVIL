@@ -23,22 +23,21 @@ switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
 
         //if nos pide el id, entonces retornamos solo 1 usuario, else retornamos todos los usuarios
-        if (isset($_GET['Cedula'])) {
+        if (isset($_GET['Cedula_Profesor'])) {
 
-            $resultado = $profesorController->searchDataId($_GET["Cedula"]);
+            $resultado = $profesorController->searchDataId($_GET["Cedula_Profesor"]);
 
             echo json_encode($resultado);
         } elseif (isset($_GET['Nombre'])) {
 
             $resultado = $profesorController->searchDataName($_GET["Nombre"]);
             echo json_encode($resultado);
-        }
-        /*else{
+        } else {
 
-            $resultado = $profesorController->getData();
+            //$resultado = $profesorController->getData();
             //$resultado["mensaje"] = "Retornar todos los usuario:";
             echo json_encode($resultado);
-        }*/
+        }
 
         break;
 

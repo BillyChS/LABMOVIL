@@ -12,7 +12,7 @@ class ModeloAlumno
 
     public  function __construct()
     {
-        $this->alumno = new Alumno("", "", "","","","");
+        $this->alumno = new Alumno("", "", "", "", "", "");
         $this->servicioAlumno = new ServicioAlumno();
     }
 
@@ -34,14 +34,14 @@ class ModeloAlumno
         notifyObservers(null);
     }
     */
-    public function listar()//ver si es necesario
+    public function listar() //ver si es necesario
     {
         return $this->servicioAlumno->listar_alumno();
     }
 
-    public function insertar(Alumno $alumno)
+    public function insertar($alumno)
     {
-        $this->servicioAlumno->insertar_alumno($alumno);//cambiar metodo cuando se haga el servicio
+        $this->servicioAlumno->insertar_alumno($alumno); //cambiar metodo cuando se haga el servicio
         /*
         setChanged();
         this.notifyObservers(null);
@@ -75,6 +75,4 @@ class ModeloAlumno
     {
         return $this->servicioAlumno->eliminar_alumno($id);
     }
-
-
 }

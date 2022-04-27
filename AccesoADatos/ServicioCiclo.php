@@ -116,8 +116,64 @@ class ServicioCiclo extends Servicio
         return $coleccion;
     }
 
+    public function listar_ciclos()
+    {
 
+        try {
+            $this->conectar();
+        } catch (Exception $e) {
+            echo "Exception:" . $e->getMessage();
+        }
 
+        $coleccion = array();
+
+        //Statement
+        $stmt = null;
+        try {
+            //objeto conexion
+            $con = $this->conexion;
+            //
+            $LISTAR_CARRERA = "SELECT * FROM CARRERA";
+            //Llamado al prodecimiento almacenado
+            $stmt = $con->query($LISTAR_CARRERA);
+
+            $coleccion = array();
+            foreach ($stmt as $key) {
+                $ciclos = array();
+                $c = new Ciclo(
+                    $key["NO_CICLO"],
+                    $key["ANIO"],
+                    $key["NUMERO"],
+                    $key["FECHA_INICIO"],
+                    $key["FECHA_FIN"],
+                );
+                $ciclo = array(
+                    "No_Ciclo" => $c->getNo_ciclo(),
+                    "Anio" => $c->getAnio(),
+                    "No_Ciclo" => $c->getNo_ciclo(),
+                    "Numero" => $c->getNumero(),
+                    "Fecha_Fin" => $c->getFecha_fin()
+                );
+                array_push($coleccion, $ciclo);
+            }
+        } catch (Exception $EX) {
+            echo "Exception, sentencia no valida: " . $EX->getMessage();
+        } finally {
+            try {
+                //Se cierra el statement
+                if ($stmt != null) {
+                    $stmt->close();
+                }
+                $this->desconectar();
+            } catch (mysqli_sql_exception $s) {
+                echo "Error" . $s->getMessage();
+            }
+        }
+        if ($coleccion == null || sizeof($coleccion) == 0) {
+            echo "No hay datos";
+        }
+        return $coleccion;
+    }
 
 
     public function eliminar_ciclo($no_Ciclo)

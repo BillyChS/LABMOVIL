@@ -33,7 +33,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
         } else {
 
             //$resultado = $cicloControler->getData();
-            //$resultado["mensaje"] = "Retornar todos los usuario:";
             //echo json_encode($resultado);
         }
 
