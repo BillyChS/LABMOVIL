@@ -57,7 +57,64 @@ class ServicioProfesor extends Servicio
         }
     }
 
+    public function listar_profesores()
+    {
 
+        try {
+            $this->conectar();
+        } catch (Exception $e) {
+            echo "Exception:" . $e->getMessage();
+        }
+
+        $coleccion = array();
+
+        //Statement
+        $stmt = null;
+        try {
+            //objeto conexion
+            $con = $this->conexion;
+            //
+            $LISTAR_PROFESORES = "SELECT * FROM PROFESOR";
+            //Llamado al prodecimiento almacenado
+            $stmt = $con->query($LISTAR_PROFESORES);
+            //pstmt.registerOutParameter(1, OracleTypes.CURSOR);
+            //$stmt->execute();
+
+            //rs = (ResultSet) pstmt.getObject(1);
+
+            foreach ($stmt as $key) {
+                $profesor = new Profesor(
+                    $key["CEDULA_PROFESOR"],
+                    $key["NOMBRE"],
+                    $key["TELEFONO"],
+                    $key["EMAIL"]
+                );
+                $d = array(
+                    "Cedula_Profesor" => $profesor->getCedula_Profesor(),
+                    "Nombre" => $profesor->getNombre(),
+                    "Telefono" => $profesor->getTelefono(),
+                    "Email" => $profesor->getEmail()
+                );
+                array_push($coleccion, $d);
+            }
+        } catch (Exception $EX) {
+            echo "Exception, sentencia no valida: " . $EX->getMessage();
+        } finally {
+            try {
+                //Se cierra el statement
+                if ($stmt != null) {
+                    $stmt->close();
+                }
+                $this->desconectar();
+            } catch (mysqli_sql_exception $s) {
+                echo "Error" . $s->getMessage();
+            }
+        }
+        if ($coleccion == null || sizeof($coleccion) == 0) {
+            echo "No hay datos";
+        }
+        return $coleccion;
+    }
 
 
     //Busqueda por codigo de carrera

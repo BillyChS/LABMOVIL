@@ -32,8 +32,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
             echo json_encode($resultado);
         } else {
 
-            //$resultado = $cicloControler->getData();
-            //echo json_encode($resultado);
+            $resultado = $cicloControler->getData();
+            echo json_encode($resultado);
         }
 
         break;

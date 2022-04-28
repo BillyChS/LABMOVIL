@@ -130,16 +130,18 @@ class ServicioCiclo extends Servicio
         //Statement
         $stmt = null;
         try {
+
             //objeto conexion
             $con = $this->conexion;
             //
-            $LISTAR_CARRERA = "SELECT * FROM CARRERA";
+            $LISTAR_CICLO = "SELECT * FROM CICLO";
+
             //Llamado al prodecimiento almacenado
-            $stmt = $con->query($LISTAR_CARRERA);
+            $stmt = $con->query($LISTAR_CICLO);
 
             $coleccion = array();
             foreach ($stmt as $key) {
-                $ciclos = array();
+
                 $c = new Ciclo(
                     $key["NO_CICLO"],
                     $key["ANIO"],
@@ -152,6 +154,7 @@ class ServicioCiclo extends Servicio
                     "Anio" => $c->getAnio(),
                     "No_Ciclo" => $c->getNo_ciclo(),
                     "Numero" => $c->getNumero(),
+                    "Fecha_Inicio" => $c->getFecha_inicio(),
                     "Fecha_Fin" => $c->getFecha_fin()
                 );
                 array_push($coleccion, $ciclo);

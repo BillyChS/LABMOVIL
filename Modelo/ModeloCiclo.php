@@ -40,4 +40,8 @@ class ModeloCiclo
     {
         return $this->servicioCiclo->buscar_por_anio($anio);
     }
+    public function obtenerCiclos()
+    {
+        return $this->servicioCiclo->listar_ciclos();
+    }
 }

@@ -34,7 +34,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             echo json_encode($resultado);
         } else {
 
-            //$resultado = $profesorController->getData();
+            $resultado = $profesorController->getData();
             //$resultado["mensaje"] = "Retornar todos los usuario:";
             echo json_encode($resultado);
         }

@@ -12,7 +12,7 @@ class ModeloProfesor
 
     public  function __construct()
     {
-        $this->profesor = new Profesor("", "", "","");
+        $this->profesor = new Profesor("", "", "", "");
         $this->servicioProfesor = new ServicioProfesor();
     }
 
@@ -34,14 +34,14 @@ class ModeloProfesor
         notifyObservers(null);
     }
     */
-    // public function listar()//ver si es necesario
-    // {
-    //     return $this->servicioProfesor->listar_carrera();
-    // }
+    public function listar() //ver si es necesario
+    {
+        return $this->servicioProfesor->listar_profesores();
+    }
 
     public function insertar(Profesor $profesor)
     {
-        $this->servicioProfesor->insertar_profesor($profesor);//cambiar metodo cuando se haga el servicio
+        $this->servicioProfesor->insertar_profesor($profesor); //cambiar metodo cuando se haga el servicio
         /*
         setChanged();
         this.notifyObservers(null);
@@ -66,6 +66,4 @@ class ModeloProfesor
     {
         return $this->servicioProfesor->buscar_profesor_nombre($nombre);
     }
-
-
 }

@@ -13,6 +13,13 @@ class ControladorCiclo
         $modeloCiclo = new ModeloCiclo();
         $modeloCiclo->insertar($ciclo);
     }
+
+    public function getData()
+    {
+        $modeloCiclo = new ModeloCiclo();
+        return $modeloCiclo->obtenerCiclos();
+    }
+
     //Por carrera
     public function searchDataYear($anio)
     {
@@ -20,6 +27,7 @@ class ControladorCiclo
         $data = $modeloCiclo->buscarPorAnio($anio);
         return $data;
     }
+
     public function deleteData($no_ciclo)
     {
         $modeloCiclo = new ModeloCiclo();

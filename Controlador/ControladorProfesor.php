@@ -14,28 +14,12 @@ class ControladorProfesor
         $profesorModel->insertar($profesor);
     }
     //Obtener Carreras
-    // public function getData()
-    // {
-    //     $profesorModel = new ModeloProfesor();
-    //     $data = array();
+    public function getData()
+    {
+        $profesorModel = new ModeloProfesor();
 
-
-
-    //     foreach ($profesorModel->listar() as $s) {
-    //         $d = array(
-    //             "Codigo_carrera" => $s->getCodigo_carrera(),
-    //             "Nombre" => $s->getNombre(),
-    //             "Titulo" => $s->getTitulo()
-    //         );
-    //         array_push($data, $d);
-    //     }
-
-
-
-
-
-    //     return $data;
-    // }
+        return $profesorModel->listar();
+    }
 
     // public function updateData($profesor)
     // {
@@ -56,7 +40,7 @@ class ControladorProfesor
         $data = $profesorModel->buscarPorNombre($nombre);
         return $data;
     }
-    
+
     // public function deleteData($id)
     // {
     //     $profesorModel = new ModeloProfesor();
