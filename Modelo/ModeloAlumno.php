@@ -67,9 +67,9 @@ class ModeloAlumno
         return $this->servicioAlumno->buscar_alumno_nombre($nombre);
     }
     //Busca por nombre
-    public function buscarPorCarrera($nombre)
+    public function buscarPorCarrera($carrera)
     {
-        return $this->servicioAlumno->buscar_alumno_carrera($nombre);
+        return $this->servicioAlumno->buscar_alumno_carrera($carrera);
     }
     public function eliminar($id)
     {

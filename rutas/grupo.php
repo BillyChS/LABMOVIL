@@ -30,6 +30,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
         if (isset($_GET['id'])) {
         } elseif (isset($_GET['nombre'])) {
         } else {
+            $resultado = $grupoControler->getData();
+            echo json_encode($resultado);
         }
 
         break;

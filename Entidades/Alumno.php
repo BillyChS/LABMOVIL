@@ -63,7 +63,7 @@ class Alumno
 
     public function getCarrera()
     {
-       return  $this->carrera;
+        return  $this->carrera;
     }
 
     public function setCarrera($carrera)
@@ -72,7 +72,7 @@ class Alumno
     }
     public function getFech_nac()
     {
-       return  $this->fech_nac;
+        return  $this->fech_nac;
     }
 
     public function setFech_nac($fech)
@@ -81,6 +81,6 @@ class Alumno
     }
     public function __toString()
     {
-        return (string)"Alumno{" . "cedula_alumno=" . $this->cedula_alumno . ", nombre=" . $this->nombre . ", telefono=" . $this->telefono . ", email=" . $this->email . ", fecha_nacimiento=".$this->fech_nac .   '}';//falta el valor de carrera pero no deja por extension
+        return (string)"Alumno{" . "cedula_alumno=" . $this->cedula_alumno . ", nombre=" . $this->nombre . ", telefono=" . $this->telefono . ", email=" . $this->email . ", fecha_nacimiento=" . $this->fech_nac .   '}'; //falta el valor de carrera pero no deja por extension
     }
 }

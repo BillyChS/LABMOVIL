@@ -113,6 +113,7 @@ class ServicioCarrera extends Servicio
                     );
                     array_push($cursos, $curso);
                 }
+                
                 $laCarrera = new Carrera(
                     $key["CODIGO_CARRERA"],
                     $key["NOMBRE"],

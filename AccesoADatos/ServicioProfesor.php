@@ -89,6 +89,7 @@ class ServicioProfesor extends Servicio
                     $key["TELEFONO"],
                     $key["EMAIL"]
                 );
+                
                 $d = array(
                     "Cedula_Profesor" => $profesor->getCedula_Profesor(),
                     "Nombre" => $profesor->getNombre(),

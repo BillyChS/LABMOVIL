@@ -62,6 +62,12 @@ class ModeloCurso
     {
         return $this->servicioCurso->buscar_curso_nombreCarrea($nombreCarrera);
     }
+
+    public function buscar_por_CodigoYCiclo($Codigo_Carrera, $No_Ciclo)
+    {
+        return $this->servicioCurso->buscar_por_CodigoYCiclo($Codigo_Carrera, $No_Ciclo);
+    }
+
     public function buscar_curso_codigoCarrera($codigoCarrera)
     {
         return $this->servicioCurso->buscar_curso_codigoCarrera($codigoCarrera);

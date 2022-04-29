@@ -20,6 +20,13 @@ class ControladorAlumno
         return $alumnoModel->listar();
     }
 
+
+    public function buscarPor_Carrera($carrera)
+    {
+        $alumnoModel = new ModeloAlumno();
+        $data = $alumnoModel->buscarPorCarrera($carrera);
+        return $data;
+    }
     // public function updateData($alumno)
     // {
     //     $alumnoModel = new ModeloAlumno();

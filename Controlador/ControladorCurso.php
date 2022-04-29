@@ -70,4 +70,10 @@ class ControladorCurso
         $cursoModel = new ModeloCurso();
         return $cursoModel->buscar_curso_codigoCarrera($codigoCarrera);
     }
+
+    public function buscar_por_CodigoYCiclo($Codigo_Carrera, $No_Ciclo)
+    {
+        $cursoModel = new ModeloCurso();
+        return $cursoModel->buscar_curso_codigoCarrera($Codigo_Carrera, $No_Ciclo);
+    }
 }

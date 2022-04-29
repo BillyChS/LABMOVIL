@@ -34,7 +34,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             echo json_encode($resultado);
         } elseif (isset($_GET['Carrera'])) {
 
-            $resultado = $alumnoController->searchDataCareer($_GET["Carrera"]);
+            $resultado = $alumnoController->buscarPor_Carrera($_GET["Carrera"]);
             echo json_encode($resultado);
         } else {
 
