@@ -80,21 +80,157 @@ class ServicioGrupo extends Servicio
             //objeto conexion
             $con = $this->conexion;
             //
-            $LISTAR_CARRERA = "SELECT * FROM CARRERA";
+            $LISTAR_GRUPO = "SELECT * FROM GRUPO";
             //Llamado al prodecimiento almacenado
-            $stmt = $con->query($LISTAR_CARRERA);
+            $stmt = $con->query($LISTAR_GRUPO);
             //pstmt.registerOutParameter(1, OracleTypes.CURSOR);
             //$stmt->execute();
 
             //rs = (ResultSet) pstmt.getObject(1);
-
+            $g = array();
             foreach ($stmt as $key) {
-                $laCarrera = new Carrera(
-                    $key["CODIGO_CARRERA"],
-                    $key["NOMBRE"],
-                    $key["TITULO"]
+                $grupo = new Grupo(
+                    $key["NUMERO_GRUPO"],
+                    $key["NO_CICLO"],
+                    $key["CODIGO_CURSO"],
+                    $key["CEDULA_PROFESOR"],
+                    $key["HORARIO"]
                 );
-                array_push($coleccion, $laCarrera);
+
+                $g = array(
+                    "Numero_Grupo" => $grupo->getNumero_Grupo(),
+                    "No_Ciclo" => $grupo->getNo_ciclo(),
+                    "Codigo_Curso" => $grupo->getCurso(),
+                    "Cedula_Profesor" => $grupo->getProfesor(),
+                    "Horario" => $grupo->getHorario()
+                );
+
+                array_push($coleccion, $g);
+            }
+        } catch (Exception $EX) {
+            echo "Exception, sentencia no valida: " . $EX->getMessage();
+        } finally {
+            try {
+                //Se cierra el statement
+                if ($stmt != null) {
+                    $stmt->close();
+                }
+                $this->desconectar();
+            } catch (mysqli_sql_exception $s) {
+                echo "Error" . $s->getMessage();
+            }
+        }
+        if ($coleccion == null || sizeof($coleccion) == 0) {
+            echo "No hay datos";
+        }
+        return $coleccion;
+    }
+
+    public function buscarGrupoPorCodigoCurso($Codigo_Curso)
+    {
+        try {
+            $this->conectar();
+        } catch (Exception $e) {
+            echo "Exception:" . $e->getMessage();
+        }
+
+        $coleccion = array();
+
+        //Statement
+        $stmt = null;
+        try {
+            //objeto conexion
+            $con = $this->conexion;
+            //
+            $LISTAR_GRUPO = "SELECT * FROM GRUPO WHERE CODIGO_CURSO='$Codigo_Curso'";
+            //Llamado al prodecimiento almacenado
+            $stmt = $con->query($LISTAR_GRUPO);
+            //pstmt.registerOutParameter(1, OracleTypes.CURSOR);
+            //$stmt->execute();
+
+            //rs = (ResultSet) pstmt.getObject(1);
+            $g = array();
+            foreach ($stmt as $key) {
+                $grupo = new Grupo(
+                    $key["NUMERO_GRUPO"],
+                    $key["NO_CICLO"],
+                    $key["CODIGO_CURSO"],
+                    $key["CEDULA_PROFESOR"],
+                    $key["HORARIO"]
+                );
+
+                $g = array(
+                    "Numero_Grupo" => $grupo->getNumero_Grupo(),
+                    "No_Ciclo" => $grupo->getNo_ciclo(),
+                    "Codigo_Curso" => $grupo->getCurso(),
+                    "Cedula_Profesor" => $grupo->getProfesor(),
+                    "Horario" => $grupo->getHorario()
+                );
+
+                array_push($coleccion, $g);
+            }
+        } catch (Exception $EX) {
+            echo "Exception, sentencia no valida: " . $EX->getMessage();
+        } finally {
+            try {
+                //Se cierra el statement
+                if ($stmt != null) {
+                    $stmt->close();
+                }
+                $this->desconectar();
+            } catch (mysqli_sql_exception $s) {
+                echo "Error" . $s->getMessage();
+            }
+        }
+        if ($coleccion == null || sizeof($coleccion) == 0) {
+            echo "No hay datos";
+        }
+        return $coleccion;
+    }
+
+    public function buscar_grupo_porNumero($Numero_Grupo)
+    {
+
+        try {
+            $this->conectar();
+        } catch (Exception $e) {
+            echo "Exception:" . $e->getMessage();
+        }
+
+        $coleccion = array();
+
+        //Statement
+        $stmt = null;
+        try {
+            //objeto conexion
+            $con = $this->conexion;
+            //
+            $LISTAR_GRUPO = "SELECT * FROM GRUPO WHERE NUMERO_GRUPO=$Numero_Grupo";
+            //Llamado al prodecimiento almacenado
+            $stmt = $con->query($LISTAR_GRUPO);
+            //pstmt.registerOutParameter(1, OracleTypes.CURSOR);
+            //$stmt->execute();
+
+            //rs = (ResultSet) pstmt.getObject(1);
+            $g = array();
+            foreach ($stmt as $key) {
+                $grupo = new Grupo(
+                    $key["NUMERO_GRUPO"],
+                    $key["NO_CICLO"],
+                    $key["CODIGO_CURSO"],
+                    $key["CEDULA_PROFESOR"],
+                    $key["HORARIO"]
+                );
+
+                $g = array(
+                    "Numero_Grupo" => $grupo->getNumero_Grupo(),
+                    "No_Ciclo" => $grupo->getNo_ciclo(),
+                    "Codigo_Curso" => $grupo->getCurso(),
+                    "Cedula_Profesor" => $grupo->getProfesor(),
+                    "Horario" => $grupo->getHorario()
+                );
+
+                array_push($coleccion, $g);
             }
         } catch (Exception $EX) {
             echo "Exception, sentencia no valida: " . $EX->getMessage();

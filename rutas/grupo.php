@@ -27,8 +27,12 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
     case 'GET':
 
-        if (isset($_GET['id'])) {
-        } elseif (isset($_GET['nombre'])) {
+        if (isset($_GET['Numero_Grupo'])) {
+            $resultado = $grupoControler->bucarGrupoPorNumero($_GET['Numero_Grupo']);
+            echo json_encode($resultado);
+        } elseif (isset($_GET['Codigo_Curso'])) {
+            $resultado = $grupoControler->bucarGrupoPorCodigoCurso($_GET['Codigo_Curso']);
+            echo json_encode($resultado);
         } else {
             $resultado = $grupoControler->getData();
             echo json_encode($resultado);
