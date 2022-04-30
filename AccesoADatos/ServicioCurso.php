@@ -241,8 +241,10 @@ class ServicioCurso extends Servicio
             //objeto conexion
             $con = $this->conexion;
             //Inner Join 
-            $BUSCAR_CURSO_NOMBRE = "SELECT * FROM CURSO  WHERE CODIGO_CARRERA='$codigo_carrera' AND 
-            NO_CICLO='$No_Ciclo";
+            $BUSCAR_CURSO_NOMBRE = "SELECT * 
+            FROM CURSO  
+            WHERE CODIGO_CARRERA='$codigo_carrera' 
+            AND NO_CICLO=$No_Ciclo";
 
             //Llamado al prodecimiento almacenado
             $stmt = $con->query($BUSCAR_CURSO_NOMBRE);
