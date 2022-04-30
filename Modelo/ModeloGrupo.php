@@ -30,4 +30,19 @@ class ModeloGrupo
         $servicioGrupo = new ServicioGrupo();
         $servicioGrupo->insertar_grupo($grupo);
     }
+    public function listar_Grupos()
+    {
+        $servicioGrupo = new ServicioGrupo();
+        return $servicioGrupo->listar_grupo();
+    }
+    public function buscarGrupoPorNumero($Numero_grupo)
+    {
+        $servicioGrupo = new ServicioGrupo();
+        return $servicioGrupo->buscar_grupo_porNumero($Numero_grupo);
+    }
+    public function buscarGrupoPorCodigoCurso($Codigo_Curso)
+    {
+        $servicioGrupo = new ServicioGrupo();
+        return $servicioGrupo->buscarGrupoPorCodigoCurso($Codigo_Curso);
+    }
 }
